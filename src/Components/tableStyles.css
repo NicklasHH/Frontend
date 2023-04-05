@@ -1,0 +1,50 @@
+.MuiDataGrid-row:nth-child(even) {
+  background-color: rgba(184, 187, 186, 0.075);
+}
+
+.MuiDataGrid-row:nth-child(odd) {
+  background-color: rgba(184, 187, 186, 0.027);
+}
+
+.MuiDataGrid-cell:focus {
+  outline: none !important;
+}
+
+.MuiDataGrid-row:hover {
+  color: #81c784;
+}
+
+.MuiDataGrid-columnHeader {
+  outline: none !important;
+  background-image: url("../Media/backgroundb.png");
+}
+
+.MuiDataGrid-columnHeader:hover {
+  color: #81c784;
+}
+
+
+.MuiSvgIcon-root:hover {
+  color: #81c784;
+}
+
+.MuiTableHead-root {
+  background-color: rgba(184, 187, 186, 0.075);
+}
+.MuiTableCell-root {
+  text-align: center !important;
+  color: #81c784 !important;
+}
+.MuiTableRow-root:nth-child(even) {
+  background-color: rgba(184, 187, 186, 0.075);
+}
+.MuiTableRow-root:nth-child(odd) {
+  background-color: rgba(184, 187, 186, 0.027);
+}
+.MuiTableRow-root:hover {
+  background-color: rgba(255, 255, 255, 0.253);
+}
+.header-cell {
+  font-weight: bold !important;
+  font-size: 18px !important;
+}
