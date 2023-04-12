@@ -1,85 +1,173 @@
 import { useState } from "react";
-import backgroundb from '../Media/backgroundb.png'
-import CreateIcon from '@mui/icons-material/Create';
-import CloseIcon from '@mui/icons-material/Close';
-import { Link } from 'react-router-dom';
-import {Box, Grid, Paper, TextField, Button, Typography, Rating} from '@mui/material';
+import RuokaViesti from "../Components/RuokaViesti.js";
+import backgroundb from "../Media/backgroundb.png";
+import CreateIcon from "@mui/icons-material/Create";
+import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
+import {
+  Slide,
+  IconButton,
+  Box,
+  Grid,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Rating,
+} from "@mui/material";
 
 const styles = {
-    root: {
-        backgroundImage: `url(${backgroundb})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        padding: '10px',
-        margin: '10px',
-        width: '270px'
-    },
+  root: {
+    backgroundImage: `url(${backgroundb})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    padding: "10px",
+    margin: "10px",
+    width: "270px",
+    height: "128px",
+  },
 };
 
 function RuokalomakeMUI() {
-    const [values, setValues] = useState({
-        nimi: '',
-        pvm: '',
-        aika: '',
-        lisatietoja: '',
-        tahdet: 0,
+  const [values, setValues] = useState({
+    nimi: "",
+    pvm: "",
+    aika: "",
+    lisatietoja: "",
+    tahdet: 0,
+  });
+  const [viesti, setViesti] = useState("");
+  const [showFields, setShowFields] = useState(false);
+
+  // Funktio rivien näyttämiselle
+  const handleNimiChange = (e) => {
+    setValues({
+      ...values,
+      nimi: e.target.value,
     });
-    const [viesti, setViesti] = useState('');
+    setShowFields(true);
+  };
 
-    // Funktio painikkeen painallukselle
-    const lisaaRuoka = (e) => {
-        e.preventDefault();
-        setViesti('Ruoka lisätty');
-        setValues({
-            nimi: '',
-            pvm: '',
-            aika: '',
-            lisatietoja: '',
-            tahdet: 0,
-        });
-    }
+  // Funktio painikkeen painallukselle
+  const lisaaRuoka = (e) => {
+    e.preventDefault();
+    setViesti("Ruoka lisätty");
 
-    const handleTahdetChange = (e, newValue) => {
-        setValues({
-            ...values,
-            tahdet: newValue
-        });
-    };
+    setTimeout(() => {
+      setViesti("");
+    }, 5000);
 
-    return (
-        <Grid
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
-            sx={{marginTop: 5}}
-        >
-            <Paper sx={styles.root}>
-                <Box
-                    component='form'
-                    sx={{ '& .MuiTextField-root': { marginBottom: 2, width: 250 } }}
-                >
-                    <TextField label='Ruoan nimi: ' name='nimi' required /> 
-                    <TextField label='Päivämäärä: ' name='pvm' /> 
-                    <TextField label='Aika: ' name='aika' /> 
-                    <TextField label='Lisätietoja: ' name='lisatietoja' /> 
+    setTimeout(() => {
+      setValues({
+        nimi: "",
+        pvm: "",
+        aika: "",
+        lisatietoja: "",
+        tahdet: 0,
+      });
+    }, 2000);
+  };
 
-                    <Box sx={{ border: 1, borderRadius: '4px', padding: '15px', display: 'flex', borderColor: '#565957' }}>
-                        <Typography sx={{ marginRight: '10px' }}>Tähdet:</Typography>
-                        <Rating name="tahdet" value={values.tahdet} onChange={handleTahdetChange} />
-                    </Box>
+  const handleTahdetChange = (e, newValue) => {
+    setValues({
+      ...values,
+      tahdet: newValue,
+    });
+  };
 
+  return (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ marginTop: 5 }}
+    >
+      <Paper sx={{ ...styles.root, position: "relative" }}>
+        <Box component="form" sx={{ "& .MuiTextField-root": { width: 250 } }}>
+          <IconButton
+            component={Link}
+            to="/ruoka"
+            sx={{ position: "absolute", top: -20, right: -20 }}
+          >
+            <CloseIcon color="pun" sx={{ "&:hover": { color: "#690000" } }} />
+          </IconButton>
 
-                    <Box sx={{ mt: 2,textAlign: 'left' }}>
-                        <Button onClick={(e) => lisaaRuoka(e)} variant='contained' sx={{ marginRight: 3, fontSize: "13px" }} startIcon={<CreateIcon />}>Lisää</Button>
-                        <Button color='secondary' variant='contained' component={ Link } to='/ruoka' sx={{ marginLeft: 3, fontSize: "13px" }} startIcon={<CloseIcon />}>Poistu</Button>
-                    </Box>
+          <Typography
+            sx={{
+              textAlign: "center",
+              mb: 1,
+              fontSize: "24px",
+              color: "#81c784",
+            }}
+          >
+            Lisää ruoka
+          </Typography>
+
+          <TextField
+            sx={{ mb: 1 }}
+            label="Ruoan nimi:"
+            name="nimi"
+            onChange={handleNimiChange}
+            value={values.nimi}
+          />
+          {values.nimi.trim().length === 0 ? null : (
+            <Slide direction="up" in={showFields}>
+              <Paper
+                sx={{
+                  backgroundImage: `url(${backgroundb})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  padding: "10px",
+                  margin: "-10px",
+                  width: "auto",
+                }}
+              >
+                <Box>
+                  <TextField sx={{ mb: 1 }} label="Päivämäärä: " name="pvm" />
+                  <TextField sx={{ mb: 1 }} label="Aika: " name="aika" />
+
+                  <TextField
+                    sx={{ mb: 1 }}
+                    label="Lisätietoja: "
+                    name="lisatietoja"
+                  />
+
+                  <Box
+                    sx={{
+                      border: 1,
+                      borderRadius: "4px",
+                      padding: "15px",
+                      display: "flex",
+                      borderColor: "#565957",
+                    }}
+                  >
+                    <Rating
+                      name="tahdet"
+                      value={values.tahdet}
+                      onChange={handleTahdetChange}
+                    />
+                  </Box>
+
+                  <Button
+                    onClick={(e) => lisaaRuoka(e)}
+                    variant="contained"
+                    sx={{ marginRight: 3, mt: 2, fontSize: "13px" }}
+                    startIcon={<CreateIcon />}
+                  >
+                    Lisää
+                  </Button>
                 </Box>
-                <Typography sx={{ marginTop: 3 }}>{viesti}</Typography>
-            </Paper>
-        </Grid>
-    );
+              </Paper>
+            </Slide>
+          )}
+        </Box>
+
+        <RuokaViesti viesti={viesti} />
+      </Paper>
+    </Grid>
+  );
 }
 
 export default RuokalomakeMUI;

@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
-import LeftMenu from './LeftMenu'
-import BottomBar from './BottomBar';
-import taustaVideo from '../Media/taustaVideo.mp4'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { createTheme } from '@mui/material/styles';
-import { Link, Outlet } from 'react-router-dom';
-import {Box, Menu, MenuItem, Button, AppBar, Toolbar} from '@mui/material';
+import React, { useState } from "react";
+import LeftMenu from "./LeftMenu";
+import BottomBar from "./BottomBar";
+import taustaVideo from "../Media/taustaVideo.mp4";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { createTheme } from "@mui/material/styles";
+import { Link, Outlet } from "react-router-dom";
+import { Box, Menu, MenuItem, Button, AppBar, Toolbar } from "@mui/material";
 
-
-const theme = createTheme({ });
+const theme = createTheme({});
 
 const videoStyle = {
-  position: 'absolute',
+  position: "absolute",
   top: 0,
   left: 0,
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
 };
 
 const TopBar = () => {
@@ -35,7 +34,7 @@ const TopBar = () => {
         left: menu.offsetLeft,
         top: e.currentTarget.offsetTop + e.currentTarget.offsetHeight,
         right: menu.offsetLeft + menu.offsetHeight,
-        bottom: menu.offsetTop + menu.offsetHeight
+        bottom: menu.offsetTop + menu.offsetHeight,
       };
       if (
         e.clientX >= menuBoundary.left &&
@@ -54,22 +53,20 @@ const TopBar = () => {
     MuiList: {
       onMouseLeave: (e) => {
         handleClose(e);
-      }
-    }
+      },
+    },
   };
 
   return (
-<Box>
-      <AppBar position='relative'>
+    <Box>
+      <AppBar position="relative">
         <video autoPlay loop muted style={videoStyle}>
           <source src={taustaVideo} />
         </video>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-
+        <Toolbar sx={{ justifyContent: "space-between" }}>
           <LeftMenu />
-          <Button component={ Link } to='/etusivu'sx={{mb: 2, fontWeight: "bold", fontSize: 20}} >Etusivu</Button>
-          <Box>
 
+          <Box>
             <Button
               onMouseOver={handleOpen}
               onMouseLeave={handleClose}
@@ -84,19 +81,26 @@ const TopBar = () => {
               MenuListProps={{ onMouseLeave: handleClose }}
               onClick={handleClose}
             >
-
-              <MenuItem component={ Link } to='kirjaudu'>Kirjaudu</MenuItem>
-              <MenuItem component={ Link } to='profiili'>Omat tiedot</MenuItem>
-              <MenuItem component={ Link } to='kirjauduUlos' style={{ color: 'pink' }}>Kirjaudu ulos</MenuItem>
+              <MenuItem component={Link} to="kirjaudu">
+                Kirjaudu
+              </MenuItem>
+              <MenuItem component={Link} to="profiili">
+                Omat tiedot
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                to="kirjauduUlos"
+                style={{ color: "pink" }}
+              >
+                Kirjaudu ulos
+              </MenuItem>
             </Menu>
-
           </Box>
         </Toolbar>
       </AppBar>
       <BottomBar />
       <Outlet />
-
-      </Box>
+    </Box>
   );
 };
 

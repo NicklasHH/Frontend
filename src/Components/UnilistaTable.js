@@ -1,13 +1,24 @@
-import '../Components/tableStyles.css';
-import { unet } from '../Components/Tiedot.js';
-import * as React from 'react';
-import { InputAdornment, TableCell, TableHead, Table, Paper, TableRow, TableBody, TableContainer, Box, TextField } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import "../Components/tableStyles.css";
+import { unet } from "../Components/Tiedot.js";
+import * as React from "react";
+import {
+  InputAdornment,
+  TableCell,
+  TableHead,
+  Table,
+  Paper,
+  TableRow,
+  TableBody,
+  TableContainer,
+  Box,
+  TextField,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 function UnilistaTable() {
-  const [searchText, setSearchText] = React.useState('');
+  const [searchText, setSearchText] = React.useState("");
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Box sx={{ m: 2 }}>
         <TextField
           sx={{ mb: 1 }}
@@ -25,7 +36,10 @@ function UnilistaTable() {
           }}
         />
 
-        <TableContainer component={Paper} sx={{ width: 'fit-content', minWidth: '460px' }}>
+        <TableContainer
+          component={Paper}
+          sx={{ width: "fit-content", minWidth: "460px" }}
+        >
           <Table size="small">
             <TableHead>
               <TableRow>
@@ -37,18 +51,31 @@ function UnilistaTable() {
             </TableHead>
 
             <TableBody>
-              {unet.filter(row => row.maara.toLowerCase().includes(searchText.toLowerCase()) || row.pvm.toLowerCase().includes(searchText.toLowerCase()) || row.laatu.toLowerCase().includes(searchText.toLowerCase()) || row.lisatiedot.toLowerCase().includes(searchText.toLowerCase())).map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.maara}H </TableCell>
-                  <TableCell>{row.pvm}</TableCell>
-                  <TableCell>{row.laatu}</TableCell>
-                  <TableCell>{row.lisatiedot}</TableCell>
-                </TableRow>
-              ))}
+              {unet
+                .filter(
+                  (row) =>
+                    row.maara
+                      .toLowerCase()
+                      .includes(searchText.toLowerCase()) ||
+                    row.pvm.toLowerCase().includes(searchText.toLowerCase()) ||
+                    row.laatu
+                      .toLowerCase()
+                      .includes(searchText.toLowerCase()) ||
+                    row.lisatiedot
+                      .toLowerCase()
+                      .includes(searchText.toLowerCase())
+                )
+                .map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell>{row.maara}H </TableCell>
+                    <TableCell>{row.pvm}</TableCell>
+                    <TableCell>{row.laatu}</TableCell>
+                    <TableCell>{row.lisatiedot}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
-
       </Box>
     </Box>
   );

@@ -1,98 +1,148 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ExpandMore, ExpandLess } from '@mui/icons-material/';
-import LunchDiningIcon from '@mui/icons-material/LunchDining';
-import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsPausedIcon from '@mui/icons-material/NotificationsPaused';
-import ClickAwayListener from '@mui/base/ClickAwayListener';
-import { Box, IconButton, Drawer, List, ListItemButton, ListItemText, ListItemIcon, Collapse } from "@mui/material";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ExpandMore, ExpandLess } from "@mui/icons-material/";
+import LunchDiningIcon from "@mui/icons-material/LunchDining";
+import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
+import NotificationsPausedIcon from "@mui/icons-material/NotificationsPaused";
+import ClickAwayListener from "@mui/base/ClickAwayListener";
+import {
+  Box,
+  IconButton,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemText,
+  ListItemIcon,
+  Collapse,
+} from "@mui/material";
 
 function LeftMenu() {
+  const [openMenu, setOpenMenu] = useState();
+  const [openUni, setOpenUni] = useState();
+  const [openRuoka, setOpenRuoka] = useState();
 
-  const [openMenu, setOpenMenu] = useState(false);
-
-  const handleOpenMenu = () => {
-    setOpenMenu(true);
-  }
-
-  // sulkee kaikki
-  const handleCloseMenu = () => {
-    setOpenMenu(false);
+  const toggleMenu = () => {
+    setOpenMenu(!openMenu);
     setOpenRuoka(false);
     setOpenUni(false);
-  }
+  };
 
-  const [openRuoka, setOpenRuoka] = React.useState(false);
-
-  const handleClickRuoka = () => {
+  const toggleRuoka = () => {
     setOpenRuoka(!openRuoka);
   };
 
-  const [openUni, setOpenUni] = React.useState(false);
-
-  const handleClickUni = () => {
+  const toggleUni = () => {
     setOpenUni(!openUni);
-
-  };
-
-  const handleClickAway = () => {
-    if (openMenu) {
-      handleCloseMenu();
-    }
   };
 
   return (
     <Box>
-      <IconButton color='primary' onClick={handleOpenMenu}><MenuIcon sx={{ position: 'fixed', fontSize: 40 }} /></IconButton>
+      <IconButton color="primary" onClick={toggleMenu}>
+        <MenuIcon sx={{ position: "fixed", fontSize: 40 }} />
+      </IconButton>
 
-      <Drawer anchor='left' open={openMenu}>
-        <ClickAwayListener onClickAway={handleClickAway}>
+      <Drawer anchor="left" open={openMenu} transitionDuration={400}>
+        <ClickAwayListener onClickAway={toggleMenu}>
           <List>
-            <IconButton color='primary' onClick={handleCloseMenu}><MenuIcon sx={{ fontSize: 40 }} /></IconButton>
+            <IconButton color="primary" onClick={toggleMenu}>
+              <MenuIcon sx={{ fontSize: 40 }} />
+            </IconButton>
 
-            <ListItemButton onClick={handleClickRuoka} sx={{ borderTop: 1, borderColor: 'grey.600', bgcolor: 'kolmas.main' }}>
+            <ListItemButton
+              component={Link}
+              to="/etusivu"
+              sx={{
+                borderTop: 1,
+                borderColor: "grey.600",
+                bgcolor: "kolmas.main",
+              }}
+              onClick={toggleMenu}
+            >
               <ListItemIcon>
-                <LunchDiningIcon color='primary' />
+                <HomeIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Etusivu" />
+            </ListItemButton>
+
+            <ListItemButton
+              onClick={toggleRuoka}
+              sx={{
+                borderTop: 1,
+                borderColor: "grey.600",
+                bgcolor: "kolmas.main",
+              }}
+            >
+              <ListItemIcon>
+                <LunchDiningIcon color="primary" />
               </ListItemIcon>
               <ListItemText primary="Ruoka" />
               {openRuoka ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openRuoka}>
               <List disablePadding>
-                <ListItemButton sx={{ height: '30px' }} onClick={handleCloseMenu} component={Link} to='ruoka'>
+                <ListItemButton
+                  sx={{ height: "30px" }}
+                  onClick={toggleMenu}
+                  component={Link}
+                  to="ruoka"
+                >
                   <ListItemText primary="Ruokapäiväkirja" />
                 </ListItemButton>
-                <ListItemButton sx={{ height: '30px' }} onClick={handleCloseMenu} component={Link} to='lisaaRuoka'>
+                <ListItemButton
+                  sx={{ height: "30px" }}
+                  onClick={toggleMenu}
+                  component={Link}
+                  to="lisaaRuoka"
+                >
                   <ListItemText primary="Lisää ruokailu" />
                 </ListItemButton>
               </List>
             </Collapse>
 
-            <ListItemButton onClick={handleClickUni} sx={{ borderTop: 1, borderColor: 'grey.600', bgcolor: 'kolmas.main' }}>
+            <ListItemButton
+              onClick={toggleUni}
+              sx={{
+                borderTop: 1,
+                borderColor: "grey.600",
+                bgcolor: "kolmas.main",
+              }}
+            >
               <ListItemIcon>
-                <NotificationsPausedIcon color='primary' />
+                <NotificationsPausedIcon color="primary" />
               </ListItemIcon>
               <ListItemText primary="Uni" />
               {openUni ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openUni}>
               <List disablePadding>
-                <ListItemButton sx={{ height: '30px' }} onClick={handleCloseMenu} component={Link} to='uni'>
+                <ListItemButton
+                  sx={{ height: "30px" }}
+                  onClick={toggleMenu}
+                  component={Link}
+                  to="uni"
+                >
                   <ListItemText primary="Unenseuranta" />
-                </ListItemButton >
-                <ListItemButton sx={{ height: '30px' }} onClick={handleCloseMenu} component={Link} to='lisaaUni'>
+                </ListItemButton>
+                <ListItemButton
+                  sx={{ height: "30px" }}
+                  onClick={toggleMenu}
+                  component={Link}
+                  to="lisaaUni"
+                >
                   <ListItemText primary="Lisää uni" />
                 </ListItemButton>
               </List>
             </Collapse>
 
             {/* Unilistan alapuolinen viiva */}
-            <ListItemButton disabled sx={{ borderTop: 1, borderColor: 'grey.400' }}>
-            </ListItemButton>
+            <ListItemButton
+              disabled
+              sx={{ borderTop: 1, borderColor: "grey.400" }}
+            ></ListItemButton>
           </List>
         </ClickAwayListener>
       </Drawer>
-
     </Box>
   );
 }
