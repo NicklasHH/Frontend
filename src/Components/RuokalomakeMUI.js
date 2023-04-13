@@ -113,7 +113,7 @@ function RuokalomakeMUI() {
             value={values.nimi}
           />
           {values.nimi.trim().length === 0 ? null : (
-            <Slide direction="up" in={showFields}>
+            <Slide direction="right" in={showFields}>
               <Paper
                 sx={{
                   backgroundImage: `url(${backgroundb})`,
