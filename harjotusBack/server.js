@@ -58,7 +58,6 @@ app.get("/uni/all", (req, res, next) => {
   }); // db.all
 });
  
-
 // yksi uni
 app.get("/uni/one/:id", (req, res, next) => {
   let id = req.params.id;
@@ -70,6 +69,19 @@ app.get("/uni/one/:id", (req, res, next) => {
     return res.status(200).json(result);
   }); // db.get
 });
+
+// Viimeisin ruoka(otettu isoin ID)
+app.get("/uni/uusin", (req, res, next) => {
+  unidb.get("SELECT * FROM uni WHERE id = (SELECT MAX(id) FROM uni)", (error, result) => {
+    if (error) throw error;
+    if (typeof result == "undefined") {
+      return res.status(200).json({});
+    }
+    return res.status(200).json(result);
+  }); // db.get
+});
+
+
 
 // uusi uni
 app.post("/uni/add", (req, res, next) => {
@@ -116,6 +128,18 @@ app.get("/ruoka/one/:id", (req, res, next) => {
     return res.status(200).json(result);
   }); // db.get
 });
+
+// Viimeisin ruoka(otettu isoin ID)
+app.get("/ruoka/uusin", (req, res, next) => {
+  ruokadb.get("SELECT * FROM ruoka WHERE id = (SELECT MAX(id) FROM ruoka)", (error, result) => {
+    if (error) throw error;
+    if (typeof result == "undefined") {
+      return res.status(200).json({});
+    }
+    return res.status(200).json(result);
+  }); // db.get
+});
+
 
 // uusi ruoka
 app.post("/ruoka/add", (req, res, next) => {

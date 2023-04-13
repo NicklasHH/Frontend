@@ -1,7 +1,6 @@
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import * as React from "react";
-import axios from "axios";
 
 function createUnet(id, maara, pvm, laatu, lisatiedot) {
   return { id, maara, pvm, laatu, lisatiedot };
@@ -47,8 +46,6 @@ function createRuoat(id, nimi, pvm, kellonaika, lisatiedot, tahdet) {
     tahdet: <StarRatingCell value={tahdet} />,
   };
 }
-
-
 
 export function StarRatingCell({ value }) {
   const filledStars = value;

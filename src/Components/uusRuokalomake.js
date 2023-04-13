@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RuokaViesti from "./RuokaViesti.js";
+import RuokaViesti from "../Components/RuokaViesti.js";
 import backgroundb from "../Media/backgroundb.png";
 import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
