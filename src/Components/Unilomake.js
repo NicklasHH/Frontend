@@ -1,7 +1,7 @@
 import backgroundb from "../Media/backgroundb.png";
 import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
-import { unenlaatu } from "../Components/Tiedot.js";
+import { unenlaatu } from "./Tiedot.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {

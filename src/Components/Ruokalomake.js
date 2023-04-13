@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RuokaViesti from "../Components/RuokaViesti.js";
+import RuokaViesti from "./RuokaViesti.js";
 import backgroundb from "../Media/backgroundb.png";
 import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
@@ -39,20 +39,23 @@ function RuokalomakeMUI() {
   const [viesti, setViesti] = useState("");
   const [showFields, setShowFields] = useState(false);
 
-  // Funktio rivien näyttämiselle
+  // Funktio muiden kuin ensimmäisen rivien näyttämiselle
   const handleNimiChange = (e) => {
     setValues({
       ...values,
       nimi: e.target.value,
     });
-    setShowFields(true);
+    if (e.target.value === "") {
+      setShowFields(false);
+    } else {
+      setShowFields(true);
+    }
   };
 
   // Funktio painikkeen painallukselle
   const lisaaRuoka = (e) => {
     e.preventDefault();
     setViesti("Ruoka lisätty");
-
     setTimeout(() => {
       setViesti("");
     }, 5000);
@@ -112,8 +115,12 @@ function RuokalomakeMUI() {
             onChange={handleNimiChange}
             value={values.nimi}
           />
-          {values.nimi.trim().length === 0 ? null : (
-            <Slide direction="right" in={showFields}>
+
+            <Slide
+              direction="right"
+              in={showFields}
+              style={{ transitionDuration: "0.8s" }}
+            >
               <Paper
                 sx={{
                   backgroundImage: `url(${backgroundb})`,
@@ -126,6 +133,7 @@ function RuokalomakeMUI() {
               >
                 <Box>
                   <TextField sx={{ mb: 1 }} label="Päivämäärä: " name="pvm" />
+
                   <TextField sx={{ mb: 1 }} label="Aika: " name="aika" />
 
                   <TextField
@@ -149,19 +157,24 @@ function RuokalomakeMUI() {
                       onChange={handleTahdetChange}
                     />
                   </Box>
-
-                  <Button
-                    onClick={(e) => lisaaRuoka(e)}
-                    variant="contained"
-                    sx={{ marginRight: 3, mt: 2, fontSize: "13px" }}
-                    startIcon={<CreateIcon />}
+                  <Slide
+                    direction="left"
+                    in={showFields}
+                    style={{ transitionDuration: "0.8s" }}
                   >
-                    Lisää
-                  </Button>
+                    <Button
+                      onClick={(e) => lisaaRuoka(e)}
+                      variant="contained"
+                      sx={{ marginRight: 3, mt: 2, fontSize: "13px" }}
+                      startIcon={<CreateIcon />}
+                    >
+                      Lisää
+                    </Button>
+                  </Slide>
                 </Box>
               </Paper>
             </Slide>
-          )}
+
         </Box>
 
         <RuokaViesti viesti={viesti} />

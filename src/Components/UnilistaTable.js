@@ -1,6 +1,8 @@
 import "../Components/tableStyles.css";
-import { unet } from "../Components/Tiedot.js";
 import * as React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   InputAdornment,
   TableCell,
@@ -13,10 +15,23 @@ import {
   Box,
   TextField,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 
 function UnilistaTable() {
   const [searchText, setSearchText] = React.useState("");
+  const [unet, setUnet] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/uni/all")
+      .then((response) => {
+        setUnet(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Box sx={{ m: 2 }}>

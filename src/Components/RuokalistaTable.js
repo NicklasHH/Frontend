@@ -1,7 +1,12 @@
-import "../Components/tableStyles.css";
-import { ruoat } from "../Components/Tiedot.js";
 import * as React from "react";
+import { useState, useEffect } from "react";
+import SearchIcon from "@mui/icons-material/Search";
+import axios from "axios";
+import "../Components/tableStyles.css";
+import Tahdet from "./Tahdet.js";
+
 import {
+  TextField,
   InputAdornment,
   TableCell,
   TableHead,
@@ -11,12 +16,23 @@ import {
   TableBody,
   TableContainer,
   Box,
-  TextField,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 
 function RuokalistaTable() {
   const [searchText, setSearchText] = React.useState("");
+  const [ruoat, setRuoat] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/ruoka/all")
+      .then((response) => {
+        setRuoat(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Box sx={{ m: 2 }}>
@@ -46,7 +62,7 @@ function RuokalistaTable() {
                 <TableCell className="header-cell">Ruoka</TableCell>
                 <TableCell className="header-cell">Päivämäärä</TableCell>
                 <TableCell className="header-cell">Kellonaika</TableCell>
-                <TableCell className="header-cell">lisatiedot</TableCell>
+                <TableCell className="header-cell">Lisätiedot</TableCell>
                 <TableCell className="header-cell">Tähdet</TableCell>
               </TableRow>
             </TableHead>
@@ -55,24 +71,20 @@ function RuokalistaTable() {
               {ruoat
                 .filter(
                   (row) =>
-                    row.ruoka
-                      .toLowerCase()
-                      .includes(searchText.toLowerCase()) ||
+                    row.nimi.toLowerCase().includes(searchText.toLowerCase()) ||
                     row.pvm.toLowerCase().includes(searchText.toLowerCase()) ||
-                    row.kellonaika
-                      .toLowerCase()
-                      .includes(searchText.toLowerCase()) ||
-                    row.lisatiedot
-                      .toLowerCase()
-                      .includes(searchText.toLowerCase())
+                    row.aika.toLowerCase().includes(searchText.toLowerCase()) ||
+                    row.lisatiedot.toLowerCase().includes(searchText.toLowerCase())
                 )
                 .map((row) => (
                   <TableRow key={row.id}>
-                    <TableCell>{row.ruoka}</TableCell>
+                    <TableCell>{row.nimi}</TableCell>
                     <TableCell>{row.pvm}</TableCell>
-                    <TableCell>{row.kellonaika}</TableCell>
+                    <TableCell>{row.aika}</TableCell>
                     <TableCell>{row.lisatiedot}</TableCell>
-                    <TableCell>{row.tahdet}</TableCell>
+                    <TableCell>
+                      <Tahdet value={row.tahdet} />
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>
@@ -82,4 +94,5 @@ function RuokalistaTable() {
     </Box>
   );
 }
+
 export default RuokalistaTable;

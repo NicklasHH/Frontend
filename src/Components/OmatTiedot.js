@@ -1,6 +1,13 @@
-import { useState } from "react";
-import { munTiedot } from "./Tiedot.js";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import EditIcon from "@mui/icons-material/Edit";
+import backgroundb from "../Media/backgroundb.png";
 import {
+  Alert,
+  Typography,
+  Box,
+  IconButton,
+  Slide,
   Card,
   CardHeader,
   CardContent,
@@ -9,10 +16,68 @@ import {
   TextField,
 } from "@mui/material";
 
-
 function OmatTiedot() {
-  const [tiedot, setTiedot] = useState(munTiedot);
+  const [tiedot, setTiedot] = useState({
+    tunnus: "",
+    enimi: "",
+    snimi: "",
+    email: "",
+    puh: "",
+  });
+  const [tietojenTarkistus, setTietojenTarkistus] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [viesti, setViesti] = useState("");
+
+  const handleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
+  // tallennus
+  const handleTallennus = () => {
+    axios
+      .get("http://localhost:8080/tieto")
+      .then((response) => {
+        setTiedot(response.data[0]);
+        setEditMode(false); 
+        setTietojenTarkistus(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      setTimeout(() => {
+        setViesti("");
+      }, 5000);
+  };
   
+// edit(jos edit tehdään ilman tallennusta)
+  useEffect(() => {
+    if (!editMode) {
+      axios
+        .get("http://localhost:8080/tieto")
+        .then((response) => {
+          setTiedot(response.data[0]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [editMode]);
+
+  // seurataan muutetaanko kenttien arvoja
+  useEffect(() => {
+    const tarkistaTiedot = async () => {
+      const response = await axios.get("http://localhost:8080/tieto");
+      const tietokannanTiedot = response.data[0];
+      const tiedotTasmaavat =
+        tiedot.enimi === tietokannanTiedot.enimi &&
+        tiedot.snimi === tietokannanTiedot.snimi &&
+        tiedot.email === tietokannanTiedot.email &&
+        tiedot.puh === tietokannanTiedot.puh;
+      setTietojenTarkistus(!tiedotTasmaavat); // muuta arvoa trueksi, jos tiedot eivät täsmää
+    };
+    tarkistaTiedot();
+  }, [tiedot]);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setTiedot((prevTiedot) => ({
@@ -23,13 +88,44 @@ function OmatTiedot() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(tiedot);
+    axios
+      .put(`http://localhost:8080/tieto/muokkaa`, tiedot)
+      .then((response) => {
+        setViesti(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <Stack spacing={2} alignItems="center">
-      <Card sx={{ width: "300px", height: "auto", margin: 5 }}>
-        <CardHeader title={"Terve " + munTiedot.tunnus.toUpperCase() + "!"} />
+      <Card
+        sx={{
+          width: "300px",
+          height: "auto",
+          margin: 5,
+          backgroundImage: `url(${backgroundb})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <CardHeader title={"Terve " + tiedot.tunnus.toUpperCase() + "!"} />
+          <IconButton
+            onClick={handleEditMode}
+            color={editMode ? "primary" : "default"}
+          >
+            <EditIcon />
+          </IconButton>
+        </Box>
+
         <CardContent>
           <form onSubmit={handleSubmit}>
             <TextField
@@ -39,6 +135,7 @@ function OmatTiedot() {
               label="Etunimi"
               value={tiedot.enimi}
               onChange={handleChange}
+              disabled={!editMode}
             />
             <TextField
               sx={{ mb: 1 }}
@@ -47,6 +144,7 @@ function OmatTiedot() {
               label="Sukunimi"
               value={tiedot.snimi}
               onChange={handleChange}
+              disabled={!editMode}
             />
             <TextField
               sx={{ mb: 1 }}
@@ -55,6 +153,7 @@ function OmatTiedot() {
               label="Sähköposti"
               value={tiedot.email}
               onChange={handleChange}
+              disabled={!editMode}
             />
             <TextField
               sx={{ mb: 1 }}
@@ -63,11 +162,24 @@ function OmatTiedot() {
               label="Puhelin"
               value={tiedot.puh}
               onChange={handleChange}
+              disabled={!editMode}
             />
-            <Button type="submit">Tallenna tiedot</Button>
+            <Slide
+              direction="right"
+              in={tietojenTarkistus}
+              style={{ transitionDuration: "0.8s" }}
+            >
+              <Button type="submit" onClick={handleTallennus}>
+                Tallenna tiedot
+              </Button>
+              
+            </Slide>
           </form>
         </CardContent>
       </Card>
+
+      {viesti && <Alert severity="success">{viesti}</Alert>}
+
     </Stack>
   );
 }

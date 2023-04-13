@@ -20,7 +20,7 @@ db.serialize(() => {
 
   sql =
   "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-    " VALUES (1, 'Ruoka1', '2023-04-01', '12.30', 'ei', '0')";
+    " VALUES (1, 'Ruoka1', '01.04.2023', '12.30', 'ei', '0')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -30,7 +30,7 @@ db.serialize(() => {
 
   sql =
   "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-    " VALUES (2, 'Ruoka2', '2023-04-02', '12.31', 'ei', '1')";
+    " VALUES (2, 'Ruoka2', '02.04.2023', '12.31', 'ei', '1')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -40,7 +40,7 @@ db.serialize(() => {
 
   sql =
   "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-    " VALUES (3, 'Ruoka3', '2023-04-03', '12.32', 'ei', '2')";
+    " VALUES (3, 'Ruoka3', '03.04.2023', '12.32', 'ei', '2')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -51,7 +51,7 @@ db.serialize(() => {
 
   sql =
   "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-    " VALUES (4, 'Ruoka4', '2023-04-04', '12.33', 'ei', '4')";
+    " VALUES (4, 'Ruoka4', '04.04.2023', '12.33', 'ei', '4')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -61,7 +61,7 @@ db.serialize(() => {
 
   sql =
   "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-    " VALUES (5, 'Ruoka5', '2023-04-05', '12.34', 'ei', '5')";
+    " VALUES (5, 'Ruoka5', '05.04.2023', '12.34', 'ei', '5')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -71,7 +71,7 @@ db.serialize(() => {
 
   sql =
   "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-    " VALUES (6, 'Ruoka6', '2023-04-06', '12.35', 'ei', '3')";
+    " VALUES (6, 'Ruoka6', '06.04.2023', '12.35', 'ei', '3')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -81,7 +81,7 @@ db.serialize(() => {
 
   sql =
   "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-    " VALUES (7, 'Ruoka7', '2023-04-07', '12.36', 'ei', '4')";
+    " VALUES (7, 'Ruoka7', '07.04.2023', '12.36', 'Ruoka meni ja paljo pohjaan', '2')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -91,7 +91,7 @@ db.serialize(() => {
 
   sql =
   "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-  " VALUES (8, 'Ruoka8', '2023-04-01', '12.37', 'ei', '4')";
+  " VALUES (8, 'Ruoka8', '08.04.2023', '12.37', 'ei', '1')";
 db.run(sql, (err) => {
   if (err) {
 	return console.log(err.message);

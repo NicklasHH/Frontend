@@ -1,10 +1,9 @@
-import TopBar from "./Navigation/TopBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
-
-import RuokalomakeMUI from "./Components/RuokalomakeMUI";
-import UnilomakeMUI from "./Components/UnilomakeMUI";
+import TopBar from "./Navigation/TopBar";
+import Ruokalomake from "./Components/Ruokalomake";
+import Unilomake from "./Components/Unilomake";
 import RuokalistaTable from "./Components/RuokalistaTable";
 import UnilistaTable from "./Components/UnilistaTable";
 import OmatTiedot from "./Components/OmatTiedot";
@@ -51,8 +50,8 @@ function App() {
             <Route path="kirjauduUlos" element={<KirjauduUlos />} />
             <Route path="uni" element={<UnilistaTable />} />
             <Route path="ruoka" element={<RuokalistaTable />} />
-            <Route path="lisaaUni" element={<UnilomakeMUI />} />
-            <Route path="lisaaRuoka" element={<RuokalomakeMUI />} />
+            <Route path="lisaaUni" element={<Unilomake />} />
+            <Route path="lisaaRuoka" element={<Ruokalomake />} />
           </Route>
         </Routes>
       </BrowserRouter>

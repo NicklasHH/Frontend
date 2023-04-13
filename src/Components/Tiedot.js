@@ -1,6 +1,7 @@
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import * as React from "react";
+import axios from "axios";
 
 function createUnet(id, maara, pvm, laatu, lisatiedot) {
   return { id, maara, pvm, laatu, lisatiedot };
@@ -36,10 +37,10 @@ export const unenlaatu = [
   },
 ];
 
-function createRuoat(id, ruoka, pvm, kellonaika, lisatiedot, tahdet) {
+function createRuoat(id, nimi, pvm, kellonaika, lisatiedot, tahdet) {
   return {
     id,
-    ruoka,
+    nimi,
     pvm,
     kellonaika,
     lisatiedot,
@@ -47,16 +48,7 @@ function createRuoat(id, ruoka, pvm, kellonaika, lisatiedot, tahdet) {
   };
 }
 
-export const ruoat = [
-  createRuoat(1, "Ruoka1", "12.04.2023", "12.35", "ei", 1),
-  createRuoat(2, "Ruoka2", "12.04.2023", "12.35", "ei", 2),
-  createRuoat(3, "Ruoka3", "13.04.2023", "12.35", "ei", 3),
-  createRuoat(4, "Ruoka4", "14.04.2023", "12.35", "ei", 4),
-  createRuoat(5, "Ruoka5", "15.04.2023", "12.35", "ei", 5),
-  createRuoat(6, "Ruoka6", "16.04.2023", "12.35", "ei", 4),
-  createRuoat(7, "Ruoka7", "17.04.2023", "12.35", "ei", 3),
-  createRuoat(8, "Ruoka8", "18.04.2023", "12.35", "ei", 2),
-];
+
 
 export function StarRatingCell({ value }) {
   const filledStars = value;
@@ -72,10 +64,13 @@ export function StarRatingCell({ value }) {
   return <div>{stars}</div>;
 }
 
-export const munTiedot = {
-  tunnus: "abc",
-  enimi: "aakkoset",
-  snimi: "Åkerman",
-  email: "etunimi.sukunimi@sähköposti.com",
-  puh: "0400123456",
-};
+export const ruoat = [
+  createRuoat(1, "Ruoka1", "12.04.2023", "12.35", "ei", 1),
+  createRuoat(2, "Ruoka2", "12.04.2023", "12.35", "ei", 2),
+  createRuoat(3, "Ruoka3", "13.04.2023", "12.35", "ei", 3),
+  createRuoat(4, "Ruoka4", "14.04.2023", "12.35", "ei", 4),
+  createRuoat(5, "Ruoka5", "15.04.2023", "12.35", "ei", 5),
+  createRuoat(6, "Ruoka6", "16.04.2023", "12.35", "ei", 4),
+  createRuoat(7, "Ruoka7", "17.04.2023", "12.35", "ei", 3),
+  createRuoat(8, "Ruoka8", "18.04.2023", "12.35", "ei", 2),
+];

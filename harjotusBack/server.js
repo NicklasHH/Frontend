@@ -11,7 +11,7 @@ const cors = require("cors");
 app.use(cors());
 
 const sqlite3 = require("sqlite3");
-const db = new sqlite3.Database("tiedot.db");
+const tietodb = new sqlite3.Database("tiedot.db");
 const unidb = new sqlite3.Database("unet.db");
 const ruokadb = new sqlite3.Database("ruoat.db");
 
@@ -24,12 +24,30 @@ app.get("/", (req, res, next) => {
 });
 
 // --------TIETO
-app.get("/tieto/all", (req, res, next) => {
-  db.all("SELECT * FROM tieto", (error, results) => {
+// hae tieto
+app.get("/tieto", (req, res, next) => {
+  tietodb.all("SELECT * FROM tieto", (error, results) => {
     if (error) throw error;
     return res.status(200).json(results);
   }); // db.all
 });
+
+// muokkaa tieto
+app.put('/tieto/muokkaa', (req, res) => {
+  const { enimi, snimi, email, puh } = req.body;
+  tietodb.run(
+    `UPDATE tieto SET enimi = ?, snimi = ?, email = ?, puh = ?`,
+    [enimi, snimi, email, puh],
+    (error) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send(error);
+      }
+      return res.status(200).send("Tiedot päivitetty onnistuneesti.");
+    }
+  );
+});
+
 
 // --------UNI
 // kaikki unet
@@ -39,6 +57,7 @@ app.get("/uni/all", (req, res, next) => {
     return res.status(200).json(results);
   }); // db.all
 });
+ 
 
 // yksi uni
 app.get("/uni/one/:id", (req, res, next) => {
