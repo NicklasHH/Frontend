@@ -5,10 +5,9 @@ import axios from "axios";
 import "../Components/tableStyles.css";
 import Tahdet from "../Toiminnot/Tahdet.js";
 import PoistaRivi from "./VarmistaPoisto.js";
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import MuokkaaRuoka from "./MuokkaaRuoka.js";
 
 import {
-  IconButton,
   TextField,
   InputAdornment,
   TableCell,
@@ -93,12 +92,7 @@ function RuokalistaTable() {
                     </TableCell>
                     <TableCell>
 
-                      <IconButton>
-                        <EditOutlinedIcon
-                          fontSize="small" 
-                          sx={{ color: "#FFFE91", "&:hover": { color: "#07F000" } }}/>
-                      </IconButton>
-
+                    <MuokkaaRuoka id={row.id} />
                       <PoistaRivi id={row.id} reitti="ruoka" />
                     </TableCell>
                   </TableRow>

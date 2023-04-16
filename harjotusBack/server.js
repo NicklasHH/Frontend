@@ -183,6 +183,27 @@ app.get("/ruoka/delete/:id", (req, res, next) => {
   });
 });
 
+// muokkaa ruoka
+app.put("/ruoka/muokkaa/:id", (req, res, next) => {
+  let id = req.params.id;
+  let ruoka = req.body;
+
+  ruokadb.run(
+    "UPDATE ruoka SET nimi = ?, pvm = ?, aika = ?, lisatiedot = ?, tahdet = ? WHERE id = ?",
+    [ruoka.nimi, ruoka.pvm, ruoka.aika, ruoka.lisatiedot, ruoka.tahdet, id],
+    (error) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send(error);
+      }
+      return res.status(200).send("Ruoka päivitetty onnistuneesti.");
+    }
+  );
+});
+
+
+
+
 // --------VIRHEILLE
 app.get("*", (req, res, next) => {
   return res

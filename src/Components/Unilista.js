@@ -90,7 +90,7 @@ function UnilistaTable() {
                     <TableCell>{row.lisatiedot}</TableCell>
                     <TableCell>
                       
-                    <MuokkaaUni id={row.id} reitti="uni" />
+                    <MuokkaaUni id={row.id}/>
                       
                       <PoistaRivi id={row.id} reitti="uni" />
                     </TableCell>
