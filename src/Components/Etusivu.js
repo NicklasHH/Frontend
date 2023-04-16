@@ -3,12 +3,28 @@ import { Typography, Box, Card, CardContent } from "@mui/material";
 import axios from "axios";
 import Tahdet from "./Tahdet.js";
 import backgroundb from "../Media/backgroundb.png";
-
-import Zoom from "react-reveal/Zoom";
+import { motion } from "framer-motion";
+import Saa from "./Saa.js";
 
 function Etusivu() {
   const [ruoka, setRuoka] = React.useState({});
+  const [clickRuoka, setClickRuoka] = React.useState(false);
   const [uni, setUni] = React.useState({});
+  const [clickUni, setClickUni] = React.useState(false);
+
+  const handleClickUni = () => {
+    if (!clickRuoka) {
+      setClickUni(!clickUni);
+      setClickRuoka(false);
+    }
+  };
+
+  const handleClickRuoka = () => {
+    if (!clickUni) {
+      setClickRuoka(!clickRuoka);
+      setClickUni(false);
+    }
+  };
 
   React.useEffect(() => {
     // hae viimeisin ruoka
@@ -33,6 +49,7 @@ function Etusivu() {
   }, []);
 
   return (
+    <Box>
     <Box
       style={{
         display: "flex",
@@ -40,10 +57,25 @@ function Etusivu() {
         alignItems: "center",
       }}
     >
-      <Zoom left bottom>
+      <motion.div
+        className="box"
+        animate={{
+          x: clickRuoka ? "50%" : 0,
+          y: clickRuoka ? "75%" : 0,
+          scale: clickRuoka ? 1.5 : 1,
+          rotate: clickRuoka ? -720 : 0,
+          opacity: clickUni ? 0 : 1,
+        }}
+        transition={{
+          duration: 0.75,
+          ease: "easeOut",
+        }}
+        onClick={handleClickRuoka}
+      >
         <Card
           sx={{
-            size: "auto",
+            width: 250,
+            height: 250,
             margin: 2,
             backgroundImage: `url(${backgroundb})`,
             backgroundSize: "cover",
@@ -66,12 +98,26 @@ function Etusivu() {
             </Box>
           </CardContent>
         </Card>
-      </Zoom>
+      </motion.div>
 
-      <Zoom right bottom>
+      <motion.div
+        className="box"
+        animate={{
+          x: clickUni ? "-50%" : 0,
+          y: clickUni ? "75%" : 0,
+          scale: clickUni ? 1.5 : 1,
+          rotate: clickUni ? 720 : 0,
+          opacity: clickRuoka ? 0 : 1,
+        }}
+        transition={{
+          duration: 0.75,
+        }}
+        onClick={handleClickUni}
+      >
         <Card
           sx={{
-            size: "auto",
+            width: 250,
+            height: 250,
             margin: 2,
             backgroundImage: `url(${backgroundb})`,
             backgroundSize: "cover",
@@ -86,7 +132,13 @@ function Etusivu() {
             <Typography>Lisätiedot: {uni.lisatiedot}</Typography>
           </CardContent>
         </Card>
-      </Zoom>
+      </motion.div>
+    </Box>
+
+
+
+          <Saa />
+
     </Box>
   );
 }

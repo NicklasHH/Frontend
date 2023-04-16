@@ -16,11 +16,14 @@ function Kirjaudu() {
     password: "",
   });
 
+  function containsNumbers(str) {
+    return /\d/.test(str);
+  }
   const [viesti, setViesti] = useState("");
 
   // Funktio painikkeen painallukselle
   const kirjaudu = (e) => {
-    setViesti("");
+    setViesti("Sisäänkirjaus onnistui!");
     e.preventDefault();
     const username = values.username;
     const password = values.password;
@@ -30,14 +33,31 @@ function Kirjaudu() {
       setViesti("Syötä käyttäjätunnus ja salasana");
       return;
     }
+
     if (username === "") {
       setViesti("Syötä käyttäjätunnus");
       return;
     }
+    if (username.length < 4) {
+      setViesti("Käyttäjätunnus on vähintään 4 merkkiä pitkä");
+      return;
+    }
+    if (username.length > 10) {
+      setViesti("Käyttäjätunnus on enintään 10 merkkiä pitkä");
+      return;
+    }
+
     if (password === "") {
       setViesti("Syötä salasana");
       return;
     }
+    if (password.length < 6 ) {
+      setViesti("Salasana on vähintään 4 merkkiä pitkä");
+      return;
+    }
+    if (containsNumbers(password) === false)
+    setViesti("Salasanassa on oltava numero");
+    return;
   };
 
   return (

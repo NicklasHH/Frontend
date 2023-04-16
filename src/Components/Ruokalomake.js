@@ -4,7 +4,6 @@ import backgroundb from "../Media/backgroundb.png";
 import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import Fade from "react-reveal/Fade";
 import {
   Slide,
   IconButton,
@@ -118,7 +117,7 @@ function RuokalomakeMUI() {
             onChange={handleNimiChange}
             value={values.nimi}
           />
-          <Fade left opposite cascade when={showFields}>
+          <Slide direction="right" in={showFields} style={{transitionDuration: '2s'}}>
             <Paper
               sx={{
                 backgroundImage: `url(${backgroundb})`,
@@ -166,7 +165,7 @@ function RuokalomakeMUI() {
                 </Button>
               </Box>
             </Paper>
-          </Fade>
+          </Slide>
         </Box>
 
         <RuokaViesti viesti={viesti} />

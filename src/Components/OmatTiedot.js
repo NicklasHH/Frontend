@@ -4,7 +4,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import backgroundb from "../Media/backgroundb.png";
 import {
   Alert,
-  Typography,
   Box,
   IconButton,
   Slide,
