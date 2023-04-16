@@ -1,11 +1,11 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
-import TopBar from "./Navigation/TopBar";
+import TopBar from "./Navigaatio/TopBar";
 import Ruokalomake from "./Components/Ruokalomake";
 import Unilomake from "./Components/Unilomake";
-import RuokalistaTable from "./Components/RuokalistaTable";
-import UnilistaTable from "./Components/UnilistaTable";
+import RuokalistaTable from "./Components/Ruokalista";
+import UnilistaTable from "./Components/Unilista";
 import OmatTiedot from "./Components/OmatTiedot";
 import Etusivu from "./Components/Etusivu";
 import Kirjaudu from "./Components/Kirjaudu";

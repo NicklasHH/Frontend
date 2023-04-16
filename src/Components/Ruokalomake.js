@@ -1,9 +1,10 @@
 import { useState } from "react";
-import RuokaViesti from "./RuokaViesti.js";
+import Viesti from "../Toiminnot/Viesti.js";
 import backgroundb from "../Media/backgroundb.png";
 import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import {
   Slide,
   IconButton,
@@ -29,15 +30,26 @@ const styles = {
 };
 
 function RuokalomakeMUI() {
+  const [viesti, setViesti] = useState("");
+  const [showFields, setShowFields] = useState(false);
+  
+  const luoRuoka = (ruoka) => {
+    axios.post("http://localhost:8080/ruoka/add", ruoka)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  
   const [values, setValues] = useState({
     nimi: "",
     pvm: "",
     aika: "",
-    lisatietoja: "",
+    lisatiedot: "",
     tahdet: 0,
   });
-  const [viesti, setViesti] = useState("");
-  const [showFields, setShowFields] = useState(false);
 
   // Funktio muiden kuin ensimmäisen rivien näyttämiselle
   const handleNimiChange = (e) => {
@@ -51,22 +63,28 @@ function RuokalomakeMUI() {
       setShowFields(true);
     }
   };
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   // Funktio painikkeen painallukselle
   const lisaaRuoka = (e) => {
     e.preventDefault();
+    luoRuoka(values);
     setViesti("Ruoka lisätty");
     setTimeout(() => {
       setViesti("");
     }, 5000);
-    
 
     setTimeout(() => {
       setValues({
         nimi: "",
         pvm: "",
         aika: "",
-        lisatietoja: "",
+        lisatiedot: "",
         tahdet: 0,
       });
       setShowFields(false);
@@ -81,6 +99,7 @@ function RuokalomakeMUI() {
   };
 
   return (
+    
     <Grid
       container
       spacing={0}
@@ -117,7 +136,11 @@ function RuokalomakeMUI() {
             onChange={handleNimiChange}
             value={values.nimi}
           />
-          <Slide direction="right" in={showFields} style={{transitionDuration: '2s'}}>
+          <Slide
+            direction="right"
+            in={showFields}
+            style={{ transitionDuration: "2s" }}
+          >
             <Paper
               sx={{
                 backgroundImage: `url(${backgroundb})`,
@@ -129,25 +152,11 @@ function RuokalomakeMUI() {
               }}
             >
               <Box>
-                <TextField sx={{ mb: 1 }} label="Päivämäärä: " name="pvm" />
+                <TextField sx={{ mb: 1 }} label="Päivämäärä: "name="pvm" onChange={handleChange} value={values.pvm}/>
+                <TextField sx={{ mb: 1 }} label="Aika: " name="aika"onChange={handleChange} value={values.aika}/>
+                <TextField sx={{ mb: 1 }} label="Lisätietoja: " name="lisatiedot" onChange={handleChange} value={values.lisatiedot}/>
 
-                <TextField sx={{ mb: 1 }} label="Aika: " name="aika" />
-
-                <TextField
-                  sx={{ mb: 1 }}
-                  label="Lisätietoja: "
-                  name="lisatietoja"
-                />
-
-                <Box
-                  sx={{
-                    border: 1,
-                    borderRadius: "4px",
-                    padding: "15px",
-                    display: "flex",
-                    borderColor: "#565957",
-                  }}
-                >
+                <Box sx={{ border: 1, borderRadius: "4px", padding: "15px", display: "flex", borderColor: "#565957" }}>
                   <Rating
                     name="tahdet"
                     value={values.tahdet}
@@ -161,14 +170,14 @@ function RuokalomakeMUI() {
                   sx={{ marginRight: 3, mt: 2, fontSize: "13px" }}
                   startIcon={<CreateIcon />}
                 >
-                  Lisää
+                  Tallenna
                 </Button>
               </Box>
             </Paper>
           </Slide>
         </Box>
 
-        <RuokaViesti viesti={viesti} />
+        <Viesti viesti={viesti} />
       </Paper>
     </Grid>
   );

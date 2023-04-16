@@ -93,7 +93,7 @@ const Saa = () => {
       }}
     >
       <Button
-        variant={naytaSaa ? "outlined" : "contained"}
+        variant={naytaSaa ? "contained" : "outlined"}
         onClick={() => setNaytaSaa((naytaSaa) => !naytaSaa)}
         style={{ marginRight: 20 }}
       >
@@ -103,7 +103,7 @@ const Saa = () => {
       <motion.div
         animate={{
           x: [0, 200, 0],
-          opacity: naytaSaa ? 0 : 1,
+          opacity: naytaSaa ? 1 : 0,
         }}
         transition={{
           x: { duration: 10, ease: "easeInOut", repeat: Infinity },

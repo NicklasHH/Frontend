@@ -19,7 +19,7 @@ db.serialize(() => {
 
   sql =
     "INSERT INTO `uni` (`id`, `maara`, `pvm`, `laatu`, `lisatiedot`) " +
-    " VALUES (1, '7', '2023-04-01', 'Hyvä', 'ei')";
+    " VALUES (1, '7', '01.04.2023', 'Hyvä', 'ei')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -29,7 +29,7 @@ db.serialize(() => {
 
   sql =
     "INSERT INTO `uni` (`id`, `maara`, `pvm`, `laatu`, `lisatiedot`) " +
-    " VALUES (2, '7', '2023-04-02', 'Erinomainen', 'ei')";
+    " VALUES (2, '7', '02.04.2023', 'Erinomainen', 'ei')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -39,7 +39,7 @@ db.serialize(() => {
 
   sql =
     "INSERT INTO `uni` (`id`, `maara`, `pvm`, `laatu`, `lisatiedot`) " +
-    " VALUES (3, '8', '2023-04-03', 'Huono', 'ei')";
+    " VALUES (3, '8', '03.04.2023', 'Huono', 'ei')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -49,7 +49,7 @@ db.serialize(() => {
 
   sql =
     "INSERT INTO `uni` (`id`, `maara`, `pvm`, `laatu`, `lisatiedot`) " +
-    " VALUES (4, '9', '2023-04-04', 'Muu(lisatietoja)', 'heräsin pirteänä')";
+    " VALUES (4, '9', '04.04.2023', 'Muu(lisatietoja)', 'heräsin pirteänä')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -59,7 +59,7 @@ db.serialize(() => {
 
   sql =
     "INSERT INTO `uni` (`id`, `maara`, `pvm`, `laatu`, `lisatiedot`) " +
-    " VALUES (5, '6', '2023-04-05', 'Erinomainen', 'ei')";
+    " VALUES (5, '6', '05.04.2023', 'Erinomainen', 'ei')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -69,7 +69,7 @@ db.serialize(() => {
 
   sql =
     "INSERT INTO `uni` (`id`, `maara`, `pvm`, `laatu`, `lisatiedot`) " +
-    " VALUES (6, '5', '2023-04-06', 'Huono', 'ei')";
+    " VALUES (6, '5', '06.04.2023', 'Huono', 'ei')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);
@@ -79,7 +79,7 @@ db.serialize(() => {
 
   sql =
     "INSERT INTO `uni` (`id`, `maara`, `pvm`, `laatu`, `lisatiedot`) " +
-    " VALUES (7, '8', '2023-04-07', 'Hyvä', 'ei')";
+    " VALUES (7, '8', '07.04.2023', 'Hyvä', 'ei')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);

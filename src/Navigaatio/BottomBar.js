@@ -1,8 +1,8 @@
 import backgroundb from "../Media/backgroundb.png";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleSearch from "../Components/GoogleSearch";
-import EmailPop from "../Components/EmailPop";
+import GoogleSearch from "../Toiminnot/GoogleSearch";
+import EmailPop from "../Toiminnot/EmailPop";
 import React, { useState } from "react";
 import {
   IconButton,

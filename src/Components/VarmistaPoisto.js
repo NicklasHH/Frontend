@@ -17,9 +17,20 @@ function Dialogi({ open, onClose, onDelete, id, reitti }) {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Haluatko varmasti poistaa rivin tiedot?</DialogTitle>
+      <DialogTitle>Haluatko poistaa rivin tiedot?</DialogTitle>
       <DialogActions sx={{ justifyContent: "center" }}>
-        <Button onClick={onClose}>Peruuta</Button>
+        <Button
+          onClick={onClose}
+          variant="contained"
+          sx={{
+            backgroundColor: "#ff0000",
+            color: "#000000",
+            fontWeight: "bold",
+            "&:hover": { backgroundColor: "#ff0000", color: "#FFFFFF" },
+          }}
+        >
+          En
+        </Button>
         <Button
           onClick={() => {
             handleDelete();
@@ -27,12 +38,13 @@ function Dialogi({ open, onClose, onDelete, id, reitti }) {
           }}
           variant="contained"
           sx={{
-            backgroundColor: "#690000",
-            color: "#fff",
-            "&:hover": { backgroundColor: "#ff0000" },
+            backgroundColor: "#07F000",
+            color: "#000000",
+            fontWeight: "bold",
+            "&:hover": { backgroundColor: "#07F000", color: "#FFFFFF" },
           }}
         >
-          Poista
+          Kyllä
         </Button>
       </DialogActions>
     </Dialog>
@@ -67,7 +79,7 @@ export default function PoistaRivi({ id, reitti }) {
       <IconButton onClick={handleClickOpen}>
         <DeleteOutlineOutlinedIcon
           fontSize="small"
-          sx={{ color: "#690000", "&:hover": { color: "#ff0000" } }}
+          sx={{ color: "#F08784", "&:hover": { color: "#ff0000" } }}
         />
       </IconButton>
       <Dialogi

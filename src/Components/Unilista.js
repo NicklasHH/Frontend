@@ -1,14 +1,12 @@
+import "../Components/tableStyles.css";
 import * as React from "react";
 import { useState, useEffect } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
-import "../Components/tableStyles.css";
-import Tahdet from "./Tahdet.js";
-import PoistaRivi from "./VarmistaPoisto.js"
-import MuokkaaRivi from "../Components/MuokkaaRivi"
+import SearchIcon from "@mui/icons-material/Search";
+import PoistaRivi from "./VarmistaPoisto.js";
+import MuokkaaUni from "./MuokkaaUni.js";
 
 import {
-  TextField,
   InputAdornment,
   TableCell,
   TableHead,
@@ -18,17 +16,17 @@ import {
   TableBody,
   TableContainer,
   Box,
+  TextField,
 } from "@mui/material";
 
-function RuokalistaTable() {
+function UnilistaTable() {
   const [searchText, setSearchText] = React.useState("");
-  const [ruoat, setRuoat] = useState([]);
-
+  const [unet, setUnet] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/ruoka/all")
+      .get("http://localhost:8080/uni/all")
       .then((response) => {
-        setRuoat(response.data);
+        setUnet(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -56,43 +54,45 @@ function RuokalistaTable() {
 
         <TableContainer
           component={Paper}
-          sx={{ width: "fit-content", minWidth: "600px" }}
+          sx={{ width: "fit-content", minWidth: "460px" }}
         >
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell className="header-cell">Ruoka</TableCell>
+                <TableCell className="header-cell">Määrä</TableCell>
                 <TableCell className="header-cell">Päivämäärä</TableCell>
-                <TableCell className="header-cell">Kellonaika</TableCell>
+                <TableCell className="header-cell">Laatu</TableCell>
                 <TableCell className="header-cell">Lisätiedot</TableCell>
-                <TableCell className="header-cell">Tähdet</TableCell>
-                <TableCell/>
+                <TableCell>muokkaa/poista</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {ruoat
+              {unet
                 .filter(
                   (row) =>
-                    row.nimi.toLowerCase().includes(searchText.toLowerCase()) ||
+                    row.maara
+                      .toLowerCase()
+                      .includes(searchText.toLowerCase()) ||
                     row.pvm.toLowerCase().includes(searchText.toLowerCase()) ||
-                    row.aika.toLowerCase().includes(searchText.toLowerCase()) ||
-                    row.lisatiedot.toLowerCase().includes(searchText.toLowerCase())
+                    row.laatu
+                      .toLowerCase()
+                      .includes(searchText.toLowerCase()) ||
+                    row.lisatiedot
+                      .toLowerCase()
+                      .includes(searchText.toLowerCase())
                 )
                 .map((row) => (
                   <TableRow key={row.id}>
-                    <TableCell>{row.nimi}</TableCell>
+                    <TableCell>{row.maara}H </TableCell>
                     <TableCell>{row.pvm}</TableCell>
-                    <TableCell>{row.aika}</TableCell>
+                    <TableCell>{row.laatu}</TableCell>
                     <TableCell>{row.lisatiedot}</TableCell>
                     <TableCell>
-                      <Tahdet value={row.tahdet} />
-                    </TableCell>
-                    <TableCell>
-
-                      <MuokkaaRivi />
-                      <PoistaRivi id={row.id} reitti="ruoka" />
-
+                      
+                    <MuokkaaUni id={row.id} reitti="uni" />
+                      
+                      <PoistaRivi id={row.id} reitti="uni" />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -103,5 +103,4 @@ function RuokalistaTable() {
     </Box>
   );
 }
-
-export default RuokalistaTable;
+export default UnilistaTable;

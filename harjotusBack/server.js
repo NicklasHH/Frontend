@@ -81,8 +81,6 @@ app.get("/uni/uusin", (req, res, next) => {
   }); // db.get
 });
 
-
-
 // uusi uni
 app.post("/uni/add", (req, res, next) => {
   let uni = req.body;
@@ -107,6 +105,25 @@ app.get("/uni/delete/:id", (req, res, next) => {
     return res.status(200).json({ count: this.changes });
   });
 });
+
+// muokkaa uni
+app.put("/uni/muokkaa/:id", (req, res, next) => {
+  let id = req.params.id;
+  let uni = req.body;
+
+  unidb.run(
+    "UPDATE uni SET maara = ?, pvm = ?, laatu = ?, lisatiedot = ? WHERE id = ?",
+    [uni.maara, uni.pvm, uni.laatu, uni.lisatiedot, id],
+    (error) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send(error);
+      }
+      return res.status(200).send("Uni päivitetty onnistuneesti.");
+    }
+  );
+});
+
 
 // --------RUOKA
 // kaikki ruoat
@@ -146,7 +163,7 @@ app.post("/ruoka/add", (req, res, next) => {
   let ruoka = req.body;
 
   ruokadb.run(
-    "insert into uni (nimi,pvm,aika,lisatiedot, tahdet) values (?, ?, ?, ?, ?)",
+    "insert into ruoka (nimi,pvm,aika,lisatiedot, tahdet) values (?, ?, ?, ?, ?)",
     [ruoka.nimi, ruoka.pvm, ruoka.aika, ruoka.lisatiedot, ruoka.tahdet],
     (error, result) => {
       if (error) throw error;

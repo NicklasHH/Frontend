@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Typography, Box, Card, CardContent } from "@mui/material";
 import axios from "axios";
-import Tahdet from "./Tahdet.js";
+import Tahdet from "../Toiminnot/Tahdet.js";
 import backgroundb from "../Media/backgroundb.png";
 import { motion } from "framer-motion";
-import Saa from "./Saa.js";
+import Saa from "../Toiminnot/Saa.js";
 
 function Etusivu() {
   const [ruoka, setRuoka] = React.useState({});

@@ -1,9 +1,11 @@
 import backgroundb from "../Media/backgroundb.png";
 import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
-import { unenlaatu } from "./Tiedot.js";
+import Viesti from "../Toiminnot/Viesti.js";
+import { unenlaatu } from "../Toiminnot/Tiedot.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import {
   IconButton,
   Box,
@@ -27,25 +29,51 @@ const styles = {
 };
 
 function UnilomakeMUI() {
-  const [setValues] = useState({
+  const [viesti, setViesti] = useState("");
+
+  const luoUni = (uni) => {
+    axios
+      .post("http://localhost:8080/uni/add", uni)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const [values, setValues] = useState({
     maara: "",
     pvm: "",
     laatu: "",
-    lisatietoja: "",
+    lisatiedot: "",
   });
 
-  const [viesti, setViesti] = useState("");
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
 
   // Funktio painikkeen painallukselle
   const lisaaUni = (e) => {
     e.preventDefault();
+    luoUni(values);
     setViesti("Uni lisätty");
-    setValues({
-      maara: "",
-      pvm: "",
-      laatu: "",
-      lisatietoja: "",
-    });
+    setTimeout(() => {
+      setViesti("");
+    }, 5000);
+
+    setTimeout(() => {
+      setValues({
+        maara: "",
+        pvm: "",
+        laatu: "",
+        lisatiedot: "",
+      });
+    }, 2000);
   };
 
   return (
@@ -78,42 +106,50 @@ function UnilomakeMUI() {
             Lisää uni
           </Typography>
 
-          <TextField sx={{ mb: 1 }} label="Unen määrä: " name="nimi" required />
-          <TextField sx={{ mb: 1 }} label="Päivämäärä: " name="pvm" />
+          <TextField
+            sx={{ mb: 1 }}
+            label="Unen määrä: "
+            name="maara"
+            required
+            inputProps={{ type: "number", inputMode: "numeric" }}
+            onChange={handleChange}
+            value={values.maara}
+          />
+          <TextField sx={{ mb: 1 }} label="Päivämäärä: " name="pvm" onChange={handleChange} value={values.pvm}/>
 
           <TextField
             sx={{ mb: 1 }}
             defaultValue=""
             label="Unenlaatu:"
-            name="unenlaatu"
+            name="laatu"
             select
+            onChange={handleChange}
+            value={values.laatu}
           >
             {unenlaatu.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
+              <MenuItem key={option.value} value={option.label}>
                 {option.label}
               </MenuItem>
             ))}
           </TextField>
 
-          <TextField label="Lisätietoja: " name="lisatietoja" />
+          <TextField label="Lisätietoja: " name="lisatiedot" onChange={handleChange} value={values.lisatiedot}/>
 
           <Box sx={{ textAlign: "left" }}>
             <Button
-              onClick={(e) => lisaaUni(e)}
+              onClick={(e) => {
+                lisaaUni(e);
+              }}
               variant="contained"
               sx={{ marginRight: 3, mt: 2, fontSize: "13px" }}
               startIcon={<CreateIcon />}
             >
-              Lisää
+              Tallenna
             </Button>
           </Box>
         </Box>
 
-        <Typography
-          sx={{ textAlign: "center", marginTop: viesti ? "1rem" : "0" }}
-        >
-          {viesti}
-        </Typography>
+        <Viesti viesti={viesti} />
       </Paper>
     </Grid>
   );

@@ -85,7 +85,7 @@ function Kirjaudu() {
             required
           />{" "}
           <br />
-          <Button onClick={(e) => kirjaudu(e)} variant="contained">
+          <Button onClick={(e) => kirjaudu(e)} variant="contained" sx={{fontWeight: "bold"}}>
             Kirjaudu
           </Button>
         </Box>

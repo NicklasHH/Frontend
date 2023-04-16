@@ -1,12 +1,15 @@
-import "../Components/tableStyles.css";
 import * as React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
-import PoistaRivi from "../Components/VarmistaPoisto.js"
-import MuokkaaRivi from "../Components/MuokkaaRivi"
+import axios from "axios";
+import "../Components/tableStyles.css";
+import Tahdet from "../Toiminnot/Tahdet.js";
+import PoistaRivi from "./VarmistaPoisto.js";
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 import {
+  IconButton,
+  TextField,
   InputAdornment,
   TableCell,
   TableHead,
@@ -16,23 +19,22 @@ import {
   TableBody,
   TableContainer,
   Box,
-  TextField,
 } from "@mui/material";
 
-function UnilistaTable() {
+function RuokalistaTable() {
   const [searchText, setSearchText] = React.useState("");
-  const [unet, setUnet] = useState([]);
+  const [ruoat, setRuoat] = useState([]);
+
   useEffect(() => {
     axios
-      .get("http://localhost:8080/uni/all")
+      .get("http://localhost:8080/ruoka/all")
       .then((response) => {
-        setUnet(response.data);
+        setRuoat(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -55,45 +57,49 @@ function UnilistaTable() {
 
         <TableContainer
           component={Paper}
-          sx={{ width: "fit-content", minWidth: "460px" }}
+          sx={{ width: "fit-content", minWidth: "600px" }}
         >
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell className="header-cell">Määrä</TableCell>
+                <TableCell className="header-cell">Ruoka</TableCell>
                 <TableCell className="header-cell">Päivämäärä</TableCell>
-                <TableCell className="header-cell">laatu</TableCell>
-                <TableCell className="header-cell">lisatiedot</TableCell>
-                <TableCell/>
+                <TableCell className="header-cell">Kellonaika</TableCell>
+                <TableCell className="header-cell">Lisätiedot</TableCell>
+                <TableCell className="header-cell">Tähdet</TableCell>
+                <TableCell>muokkaa/poista</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {unet
+              {ruoat
                 .filter(
                   (row) =>
-                    row.maara
-                      .toLowerCase()
-                      .includes(searchText.toLowerCase()) ||
+                    row.nimi.toLowerCase().includes(searchText.toLowerCase()) ||
                     row.pvm.toLowerCase().includes(searchText.toLowerCase()) ||
-                    row.laatu
-                      .toLowerCase()
-                      .includes(searchText.toLowerCase()) ||
+                    row.aika.toLowerCase().includes(searchText.toLowerCase()) ||
                     row.lisatiedot
                       .toLowerCase()
                       .includes(searchText.toLowerCase())
                 )
                 .map((row) => (
                   <TableRow key={row.id}>
-                    <TableCell>{row.maara}H </TableCell>
+                    <TableCell>{row.nimi}</TableCell>
                     <TableCell>{row.pvm}</TableCell>
-                    <TableCell>{row.laatu}</TableCell>
+                    <TableCell>{row.aika}</TableCell>
                     <TableCell>{row.lisatiedot}</TableCell>
                     <TableCell>
+                      <Tahdet value={row.tahdet} />
+                    </TableCell>
+                    <TableCell>
 
-                      <MuokkaaRivi />
-                      <PoistaRivi id={row.id} reitti="uni" />
+                      <IconButton>
+                        <EditOutlinedIcon
+                          fontSize="small" 
+                          sx={{ color: "#FFFE91", "&:hover": { color: "#07F000" } }}/>
+                      </IconButton>
 
+                      <PoistaRivi id={row.id} reitti="ruoka" />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -104,4 +110,5 @@ function UnilistaTable() {
     </Box>
   );
 }
-export default UnilistaTable;
+
+export default RuokalistaTable;
