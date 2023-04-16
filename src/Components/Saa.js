@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import Aika from "./Aika.js";
 
 const Saa = () => {
   const [saa, setSaa] = useState(null);
@@ -116,8 +117,10 @@ const Saa = () => {
           borderColor="primary.main"
           padding={5}
         >
-          <Typography>Sää nyt</Typography>
-          <Typography>Aika: {saa.time.slice(-5)}</Typography>
+          <Typography>
+            Kello on <Aika />{" "}
+          </Typography>
+          <Typography>Sää on päivitetty: {saa.time.slice(-5)}</Typography>
           <Typography>Lämpötila: {saa.temperature}</Typography>
           <Typography>Sää: {koodiSaaksi}</Typography>
           <Typography>Tuulen nopeus: {saa.windspeed} m/s</Typography>

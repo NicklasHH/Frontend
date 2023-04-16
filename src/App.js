@@ -44,7 +44,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<TopBar />}>
-            <Route path="/etusivu" element={<Etusivu />} />
+            <Route path="/" element={<Etusivu />} />
             <Route path="profiili" element={<OmatTiedot />} />
             <Route path="kirjaudu" element={<Kirjaudu />} />
             <Route path="kirjauduUlos" element={<KirjauduUlos />} />

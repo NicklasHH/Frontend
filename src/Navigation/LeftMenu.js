@@ -51,7 +51,7 @@ function LeftMenu() {
 
             <ListItemButton
               component={Link}
-              to="/etusivu"
+              to="/"
               sx={{
                 borderTop: 1,
                 borderColor: "grey.600",

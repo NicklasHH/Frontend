@@ -3,6 +3,9 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
+import PoistaRivi from "../Components/VarmistaPoisto.js"
+import MuokkaaRivi from "../Components/MuokkaaRivi"
+
 import {
   InputAdornment,
   TableCell,
@@ -29,7 +32,6 @@ function UnilistaTable() {
         console.log(error);
       });
   }, []);
-
 
 
   return (
@@ -62,6 +64,7 @@ function UnilistaTable() {
                 <TableCell className="header-cell">Päivämäärä</TableCell>
                 <TableCell className="header-cell">laatu</TableCell>
                 <TableCell className="header-cell">lisatiedot</TableCell>
+                <TableCell/>
               </TableRow>
             </TableHead>
 
@@ -86,6 +89,12 @@ function UnilistaTable() {
                     <TableCell>{row.pvm}</TableCell>
                     <TableCell>{row.laatu}</TableCell>
                     <TableCell>{row.lisatiedot}</TableCell>
+                    <TableCell>
+
+                      <MuokkaaRivi />
+                      <PoistaRivi id={row.id} reitti="uni" />
+
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>

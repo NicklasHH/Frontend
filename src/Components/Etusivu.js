@@ -50,95 +50,98 @@ function Etusivu() {
 
   return (
     <Box>
-    <Box
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <motion.div
-        className="box"
-        animate={{
-          x: clickRuoka ? "50%" : 0,
-          y: clickRuoka ? "75%" : 0,
-          scale: clickRuoka ? 1.5 : 1,
-          rotate: clickRuoka ? -720 : 0,
-          opacity: clickUni ? 0 : 1,
+      <Box
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        transition={{
-          duration: 0.75,
-          ease: "easeOut",
-        }}
-        onClick={handleClickRuoka}
       >
-        <Card
-          sx={{
-            width: 250,
-            height: 250,
-            margin: 2,
-            backgroundImage: `url(${backgroundb})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+        <motion.div
+          className="box"
+          animate={{
+            x: clickRuoka ? "50%" : 0,
+            y: clickRuoka ? "75%" : 0,
+            scale: clickRuoka ? 1.5 : 1,
+            rotate: clickRuoka ? -720 : 0,
+            opacity: clickUni ? 0 : 1,
           }}
+          transition={{
+            duration: 0.75,
+            ease: "easeOut",
+          }}
+          onClick={handleClickRuoka}
         >
-          <CardContent>
-            <Typography variant="h5">Viimeisin ruoka:</Typography>
-            <Typography>Nimi: {ruoka.nimi}</Typography>
-            <Typography>Päivämäärä: {ruoka.pvm}</Typography>
-            <Typography>Kellonaika: {ruoka.aika}</Typography>
-            <Typography>Lisätiedot: {ruoka.lisatiedot}</Typography>
+          <Card
+            sx={{
+              width: 250,
+              height: 250,
+              margin: 2,
+              backgroundImage: `url(${backgroundb})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <CardContent>
+              <Typography variant="h5">Viimeisin ruoka:</Typography>
+              <Typography>Nimi: {ruoka.nimi}</Typography>
+              <Typography>Päivämäärä: {ruoka.pvm}</Typography>
+              <Typography>Kellonaika: {ruoka.aika}</Typography>
+              <Typography>Lisätiedot: {ruoka.lisatiedot}</Typography>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Typography>Tähdet:</Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Typography>Tähdet:</Typography>
 
-              <Box sx={{ display: "inline-block", ml: 1 }}>
-                <Tahdet value={ruoka.tahdet} />
+                <Box sx={{ display: "inline-block", ml: 1 }}>
+                  <Tahdet value={ruoka.tahdet} />
+                </Box>
               </Box>
-            </Box>
-          </CardContent>
-        </Card>
-      </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div
+          className="box"
+          animate={{
+            x: clickUni ? "-50%" : 0,
+            y: clickUni ? "75%" : 0,
+            scale: clickUni ? 1.5 : 1,
+            rotate: clickUni ? 720 : 0,
+            opacity: clickRuoka ? 0 : 1,
+          }}
+          transition={{
+            duration: 0.75,
+          }}
+          onClick={handleClickUni}
+        >
+          <Card
+            sx={{
+              width: 250,
+              height: 250,
+              margin: 2,
+              backgroundImage: `url(${backgroundb})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <CardContent>
+              <Typography variant="h5">Viimeisin uni:</Typography>
+              <Typography>Määrä: {uni.maara}h</Typography>
+              <Typography>Päivämäärä: {uni.pvm}</Typography>
+              <Typography>laatu: {uni.laatu}</Typography>
+              <Typography>Lisätiedot: {uni.lisatiedot}</Typography>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </Box>
 
       <motion.div
-        className="box"
-        animate={{
-          x: clickUni ? "-50%" : 0,
-          y: clickUni ? "75%" : 0,
-          scale: clickUni ? 1.5 : 1,
-          rotate: clickUni ? 720 : 0,
-          opacity: clickRuoka ? 0 : 1,
-        }}
-        transition={{
-          duration: 0.75,
-        }}
-        onClick={handleClickUni}
-      >
-        <Card
-          sx={{
-            width: 250,
-            height: 250,
-            margin: 2,
-            backgroundImage: `url(${backgroundb})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <CardContent>
-            <Typography variant="h5">Viimeisin uni:</Typography>
-            <Typography>Määrä: {uni.maara}h</Typography>
-            <Typography>Päivämäärä: {uni.pvm}</Typography>
-            <Typography>laatu: {uni.laatu}</Typography>
-            <Typography>Lisätiedot: {uni.lisatiedot}</Typography>
-          </CardContent>
-        </Card>
+      animate={{
+        opacity: clickUni || clickRuoka ? 0 : 1,
+      }}>
+
+        <Saa />
       </motion.div>
-    </Box>
-
-
-
-          <Saa />
-
     </Box>
   );
 }

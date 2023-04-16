@@ -4,6 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import "../Components/tableStyles.css";
 import Tahdet from "./Tahdet.js";
+import PoistaRivi from "./VarmistaPoisto.js"
+import MuokkaaRivi from "../Components/MuokkaaRivi"
 
 import {
   TextField,
@@ -64,6 +66,7 @@ function RuokalistaTable() {
                 <TableCell className="header-cell">Kellonaika</TableCell>
                 <TableCell className="header-cell">Lisätiedot</TableCell>
                 <TableCell className="header-cell">Tähdet</TableCell>
+                <TableCell/>
               </TableRow>
             </TableHead>
 
@@ -84,6 +87,12 @@ function RuokalistaTable() {
                     <TableCell>{row.lisatiedot}</TableCell>
                     <TableCell>
                       <Tahdet value={row.tahdet} />
+                    </TableCell>
+                    <TableCell>
+
+                      <MuokkaaRivi />
+                      <PoistaRivi id={row.id} reitti="ruoka" />
+
                     </TableCell>
                   </TableRow>
                 ))}

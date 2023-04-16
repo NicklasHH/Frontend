@@ -10,7 +10,7 @@ function KirjauduUlos() {
     if (count < 6) {
       setTimeout(() => setCount(count + 1), 1000);
     } else {
-      navigate("/etusivu"); // Siirry etusivulle, kun aika on kulunut loppuun
+      navigate("/"); // Siirry etusivulle, kun aika on kulunut loppuun
     }
   }, [count, navigate]);
 
