@@ -1,4 +1,12 @@
-import { Typography, Box, Grid, Paper, TextField, Button } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Grid,
+  Paper,
+  TextField,
+  Button,
+} from "@mui/material";
+
 import { useState } from "react";
 
 const styles = {
@@ -51,12 +59,12 @@ function Kirjaudu() {
       setViesti("Syötä salasana");
       return;
     }
-    if (password.length < 6 ) {
+    if (password.length < 6) {
       setViesti("Salasana on vähintään 4 merkkiä pitkä");
       return;
     }
     if (containsNumbers(password) === false)
-    setViesti("Salasanassa on oltava numero");
+      setViesti("Salasanassa on oltava numero");
     return;
   };
 
@@ -85,7 +93,11 @@ function Kirjaudu() {
             required
           />{" "}
           <br />
-          <Button onClick={(e) => kirjaudu(e)} variant="contained" sx={{fontWeight: "bold"}}>
+          <Button
+            onClick={(e) => kirjaudu(e)}
+            variant="contained"
+            sx={{ fontWeight: "bold" }}
+          >
             Kirjaudu
           </Button>
         </Box>

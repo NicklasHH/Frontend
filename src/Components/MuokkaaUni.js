@@ -72,6 +72,7 @@ function Dialogi({ open, onClose, onEdit, id }) {
           label="Unen määrä: "
           name="maara"
           required
+          fullWidth
           inputProps={{ type: "number", inputMode: "numeric" }}
           value={maara}
           onChange={(e) => setMaara(e.target.value)}
@@ -81,6 +82,7 @@ function Dialogi({ open, onClose, onEdit, id }) {
           label="Päivämäärä: "
           name="pvm"
           value={pvm}
+          fullWidth
           onChange={(e) => setPvm(e.target.value)}
         />
         <TextField
@@ -103,6 +105,7 @@ function Dialogi({ open, onClose, onEdit, id }) {
         <TextField
           label="Lisätietoja: "
           name="lisatiedot"
+          fullWidth
           value={lisatiedot}
           onChange={(e) => setLisatiedot(e.target.value)}
         />
@@ -120,7 +123,6 @@ function Dialogi({ open, onClose, onEdit, id }) {
           <Button
             onClick={() => {
               handleEdit();
-              window.location.reload();
             }}
             sx={{
               fontWeight: "bold",

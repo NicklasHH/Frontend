@@ -37,18 +37,18 @@ function OmatTiedot() {
       .get("http://localhost:8080/tieto")
       .then((response) => {
         setTiedot(response.data[0]);
-        setEditMode(false); 
+        setEditMode(false);
         setTietojenTarkistus(false);
       })
       .catch((error) => {
         console.log(error);
       });
-      setTimeout(() => {
-        setViesti("");
-      }, 5000);
+    setTimeout(() => {
+      setViesti("");
+    }, 5000);
   };
-  
-// edit(jos edit tehdään ilman tallennusta)
+
+  // edit(jos edit tehdään ilman tallennusta)
   useEffect(() => {
     if (!editMode) {
       axios
@@ -60,7 +60,7 @@ function OmatTiedot() {
           console.log(error);
         });
     }
-  }, [editMode]);
+  });
 
   // seurataan muutetaanko kenttien arvoja
   useEffect(() => {
@@ -90,7 +90,7 @@ function OmatTiedot() {
     axios
       .put(`http://localhost:8080/tieto/muokkaa`, tiedot)
       .then((response) => {
-        setViesti(response.data)
+        setViesti(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -171,14 +171,12 @@ function OmatTiedot() {
               <Button type="submit" onClick={handleTallennus}>
                 Tallenna tiedot
               </Button>
-              
             </Slide>
           </form>
         </CardContent>
       </Card>
 
       {viesti && <Alert severity="success">{viesti}</Alert>}
-
     </Stack>
   );
 }

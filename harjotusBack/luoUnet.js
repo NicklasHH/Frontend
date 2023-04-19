@@ -1,11 +1,20 @@
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("unet.db");
+let laskuri = 0;
 
 db.serialize(() => {
+  // Suorita DROP TABLE -komento
+  db.run("DROP TABLE IF EXISTS uni", (err) => {
+    if (err) {
+      return console.log(err.message);
+    }
+    console.log("Vanha taulu poistettiin");
+  });
+
   let sql =
     "CREATE TABLE uni (" +
     "id integer PRIMARY KEY NOT NULL, " +
-    "maara text NOT NULL, " +
+    "maara text, " +
     "pvm text, " +
     "laatu text, " +
     "lisatiedot text )";
@@ -14,7 +23,7 @@ db.serialize(() => {
     if (err) {
       return console.log(err.message);
     }
-    console.log("Taulu tehtiin");
+    console.log("Uusi taulu luotu");
   });
 
   sql =
@@ -24,7 +33,8 @@ db.serialize(() => {
     if (err) {
       return console.log(err.message);
     }
-    console.log("Rivi lisättiin");
+    laskuri++;
+    console.log("Rivi lisätty");
   });
 
   sql =
@@ -34,7 +44,8 @@ db.serialize(() => {
     if (err) {
       return console.log(err.message);
     }
-    console.log("Rivi lisättiin");
+    laskuri++;
+    console.log("Rivi lisätty");
   });
 
   sql =
@@ -44,7 +55,8 @@ db.serialize(() => {
     if (err) {
       return console.log(err.message);
     }
-    console.log("Rivi lisättiin");
+    laskuri++;
+    console.log("Rivi lisätty");
   });
 
   sql =
@@ -54,7 +66,8 @@ db.serialize(() => {
     if (err) {
       return console.log(err.message);
     }
-    console.log("Rivi lisättiin");
+    laskuri++;
+    console.log("Rivi lisätty");
   });
 
   sql =
@@ -64,7 +77,8 @@ db.serialize(() => {
     if (err) {
       return console.log(err.message);
     }
-    console.log("Rivi lisättiin");
+    laskuri++;
+    console.log("Rivi lisätty");
   });
 
   sql =
@@ -74,7 +88,8 @@ db.serialize(() => {
     if (err) {
       return console.log(err.message);
     }
-    console.log("Rivi lisättiin");
+    laskuri++;
+    console.log("Rivi lisätty");
   });
 
   sql =
@@ -84,7 +99,9 @@ db.serialize(() => {
     if (err) {
       return console.log(err.message);
     }
-    console.log("Rivi lisättiin");
+    laskuri++;
+    console.log("Rivi lisätty");
+    console.log("Yhteensä lisättiin " + laskuri + " riviä");
   });
 
   db.each("SELECT id, maara FROM uni", function (err, row) {

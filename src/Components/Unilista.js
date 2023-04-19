@@ -1,12 +1,12 @@
-import "../Components/tableStyles.css";
+import "../Css/tableStyles.css";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import PoistaRivi from "./VarmistaPoisto.js";
 import MuokkaaUni from "./MuokkaaUni.js";
-
 import {
+  TextField,
   InputAdornment,
   TableCell,
   TableHead,
@@ -16,12 +16,14 @@ import {
   TableBody,
   TableContainer,
   Box,
-  TextField,
 } from "@mui/material";
+
+
 
 function UnilistaTable() {
   const [searchText, setSearchText] = React.useState("");
   const [unet, setUnet] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/uni/all")
@@ -30,9 +32,9 @@ function UnilistaTable() {
       })
       .catch((error) => {
         console.log(error);
-      });
-  }, []);
-
+      })
+    });
+    
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Box sx={{ m: 2 }}>
@@ -89,9 +91,8 @@ function UnilistaTable() {
                     <TableCell>{row.laatu}</TableCell>
                     <TableCell>{row.lisatiedot}</TableCell>
                     <TableCell>
-                      
-                    <MuokkaaUni id={row.id}/>
-                      
+                      <MuokkaaUni id={row.id} />
+
                       <PoistaRivi id={row.id} reitti="uni" />
                     </TableCell>
                   </TableRow>

@@ -75,6 +75,7 @@ function Dialogi({ open, onClose, onEdit, id }) {
           label="Ruoan nimi: "
           name="nimi"
           required
+          fullWidth
           value={nimi}
           onChange={(e) => setNimi(e.target.value)}
         />
@@ -82,6 +83,7 @@ function Dialogi({ open, onClose, onEdit, id }) {
           sx={{ mb: 1 }}
           label="Päivämäärä: "
           name="pvm"
+          fullWidth
           value={pvm}
           onChange={(e) => setPvm(e.target.value)}
         />
@@ -89,6 +91,7 @@ function Dialogi({ open, onClose, onEdit, id }) {
           sx={{ mb: 1 }}
           label="Aika: "
           name="aika"
+          fullWidth
           value={aika}
           onChange={(e) => setAika(e.target.value)}
         />
@@ -96,14 +99,16 @@ function Dialogi({ open, onClose, onEdit, id }) {
         <TextField
           label="Lisätietoja: "
           name="lisatiedot"
+          fullWidth
           value={lisatiedot}
           onChange={(e) => setLisatiedot(e.target.value)}
+          multiline
         />
 
         <Box
           sx={{
             border: 1,
-            mt:1,
+            mt: 1,
             borderRadius: "4px",
             padding: "15px",
             display: "flex",
@@ -130,7 +135,6 @@ function Dialogi({ open, onClose, onEdit, id }) {
           <Button
             onClick={() => {
               handleEdit();
-              window.location.reload();
             }}
             sx={{
               fontWeight: "bold",

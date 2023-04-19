@@ -33,7 +33,7 @@ app.get("/tieto", (req, res, next) => {
 });
 
 // muokkaa tieto
-app.put('/tieto/muokkaa', (req, res) => {
+app.put("/tieto/muokkaa", (req, res) => {
   const { enimi, snimi, email, puh } = req.body;
   tietodb.run(
     `UPDATE tieto SET enimi = ?, snimi = ?, email = ?, puh = ?`,
@@ -48,7 +48,6 @@ app.put('/tieto/muokkaa', (req, res) => {
   );
 });
 
-
 // --------UNI
 // kaikki unet
 app.get("/uni/all", (req, res, next) => {
@@ -57,7 +56,7 @@ app.get("/uni/all", (req, res, next) => {
     return res.status(200).json(results);
   }); // db.all
 });
- 
+
 // yksi uni
 app.get("/uni/one/:id", (req, res, next) => {
   let id = req.params.id;
@@ -72,22 +71,29 @@ app.get("/uni/one/:id", (req, res, next) => {
 
 // Viimeisin ruoka(otettu isoin ID)
 app.get("/uni/uusin", (req, res, next) => {
-  unidb.get("SELECT * FROM uni WHERE id = (SELECT MAX(id) FROM uni)", (error, result) => {
-    if (error) throw error;
-    if (typeof result == "undefined") {
-      return res.status(200).json({});
+  unidb.get(
+    "SELECT * FROM uni WHERE id = (SELECT MAX(id) FROM uni)",
+    (error, result) => {
+      if (error) throw error;
+      if (typeof result == "undefined") {
+        return res.status(200).json({});
+      }
+      return res.status(200).json(result);
     }
-    return res.status(200).json(result);
-  }); // db.get
+  ); // db.get
 });
 
 // uusi uni
 app.post("/uni/add", (req, res, next) => {
   let uni = req.body;
+  uni.maara = parseInt(uni.maara);
+
+  // Muunnetaan päivämäärä dd.mm.yyyy -muotoon
+  let formattedDate = uni.pvm ? uni.pvm.split("-").reverse().join(".") : null;
 
   unidb.run(
     "insert into uni (maara,pvm,laatu,lisatiedot) values (?, ?, ?, ?)",
-    [uni.maara, uni.pvm, uni.laatu, uni.lisatiedot],
+    [uni.maara, formattedDate, uni.laatu, uni.lisatiedot],
     (error, result) => {
       if (error) throw error;
 
@@ -124,7 +130,6 @@ app.put("/uni/muokkaa/:id", (req, res, next) => {
   );
 });
 
-
 // --------RUOKA
 // kaikki ruoat
 app.get("/ruoka/all", (req, res, next) => {
@@ -148,23 +153,30 @@ app.get("/ruoka/one/:id", (req, res, next) => {
 
 // Viimeisin ruoka(otettu isoin ID)
 app.get("/ruoka/uusin", (req, res, next) => {
-  ruokadb.get("SELECT * FROM ruoka WHERE id = (SELECT MAX(id) FROM ruoka)", (error, result) => {
-    if (error) throw error;
-    if (typeof result == "undefined") {
-      return res.status(200).json({});
+  ruokadb.get(
+    "SELECT * FROM ruoka WHERE id = (SELECT MAX(id) FROM ruoka)",
+    (error, result) => {
+      if (error) throw error;
+      if (typeof result == "undefined") {
+        return res.status(200).json({});
+      }
+      return res.status(200).json(result);
     }
-    return res.status(200).json(result);
-  }); // db.get
+  ); // db.get
 });
-
 
 // uusi ruoka
 app.post("/ruoka/add", (req, res, next) => {
   let ruoka = req.body;
 
+  // Tarkista, onko päivämäärä määritelty
+  let formattedDate = ruoka.pvm
+    ? ruoka.pvm.split("-").reverse().join(".")
+    : null;
+
   ruokadb.run(
     "insert into ruoka (nimi,pvm,aika,lisatiedot, tahdet) values (?, ?, ?, ?, ?)",
-    [ruoka.nimi, ruoka.pvm, ruoka.aika, ruoka.lisatiedot, ruoka.tahdet],
+    [ruoka.nimi, formattedDate, ruoka.aika, ruoka.lisatiedot, ruoka.tahdet],
     (error, result) => {
       if (error) throw error;
 
@@ -200,9 +212,6 @@ app.put("/ruoka/muokkaa/:id", (req, res, next) => {
     }
   );
 });
-
-
-
 
 // --------VIRHEILLE
 app.get("*", (req, res, next) => {

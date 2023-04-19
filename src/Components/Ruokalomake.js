@@ -4,9 +4,9 @@ import backgroundb from "../Media/backgroundb.png";
 import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import axios from "axios";
 import {
-  Slide,
   IconButton,
   Box,
   Grid,
@@ -32,17 +32,18 @@ const styles = {
 function RuokalomakeMUI() {
   const [viesti, setViesti] = useState("");
   const [showFields, setShowFields] = useState(false);
-  
+
   const luoRuoka = (ruoka) => {
-    axios.post("http://localhost:8080/ruoka/add", ruoka)
+    axios
+      .post("http://localhost:8080/ruoka/add", ruoka)
       .then((response) => {
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }
-  
+  };
+
   const [values, setValues] = useState({
     nimi: "",
     pvm: "",
@@ -99,7 +100,6 @@ function RuokalomakeMUI() {
   };
 
   return (
-    
     <Grid
       container
       spacing={0}
@@ -135,11 +135,18 @@ function RuokalomakeMUI() {
             name="nimi"
             onChange={handleNimiChange}
             value={values.nimi}
+            autoComplete="off"
           />
-          <Slide
-            direction="right"
-            in={showFields}
-            style={{ transitionDuration: "2s" }}
+          <motion.div
+            animate={{
+              x: showFields ? [-500, 40, 0] : -500,
+              opacity: showFields ? 1 : 0,
+            }}
+            initial={{ x: -500, opacity: 0 }}
+            transition={{
+              x: { duration: 2, ease: "easeInOut" },
+              opacity: { duration: 1.5, ease: "easeInOut" },
+            }}
           >
             <Paper
               sx={{
@@ -152,17 +159,48 @@ function RuokalomakeMUI() {
               }}
             >
               <Box>
-                <TextField sx={{ mb: 1 }} label="Päivämäärä: "name="pvm" onChange={handleChange} value={values.pvm}/>
-                <TextField sx={{ mb: 1 }} label="Aika: " name="aika"onChange={handleChange} value={values.aika}/>
-                <TextField sx={{ mb: 1 }} label="Lisätietoja: " name="lisatiedot" onChange={handleChange} value={values.lisatiedot}/>
+                <TextField
+                  sx={{ mb: 1 }}
+                  label="Päivämäärä: "
+                  name="pvm"
+                  type="date"
+                  onChange={handleChange}
+                  value={values.pvm}
+                  InputLabelProps={{ shrink: true }}
+                />
+                <TextField
+                  sx={{ mb: 1 }}
+                  label="Aika: "
+                  name="aika"
+                  type="time"
+                  onChange={handleChange}
+                  value={values.aika}
+                  InputLabelProps={{ shrink: true }}
+                />
+                <TextField
+                  sx={{ mb: 1 }}
+                  label="Lisätietoja: "
+                  name="lisatiedot"
+                  onChange={handleChange}
+                  value={values.lisatiedot}
+                  autoComplete="off"
+                  multiline
+                />
 
-                <Box sx={{ border: 1, borderRadius: "4px", padding: "15px", display: "flex", borderColor: "#565957" }}>
-                  <Rating
-                    name="tahdet"
-                    value={values.tahdet}
-                    onChange={handleTahdetChange}
-                  />
-                </Box>
+                <TextField
+                  label="Tähdet"
+                  variant="outlined"
+                  onChange={handleTahdetChange}
+                  InputProps={{
+                    startAdornment: (
+                      <Rating
+                        name="tahdet"
+                        value={values.tahdet}
+                        onChange={handleTahdetChange}
+                      />
+                    ),
+                  }}
+                />
 
                 <Button
                   onClick={(e) => lisaaRuoka(e)}
@@ -174,7 +212,7 @@ function RuokalomakeMUI() {
                 </Button>
               </Box>
             </Paper>
-          </Slide>
+          </motion.div>
         </Box>
 
         <Viesti viesti={viesti} />

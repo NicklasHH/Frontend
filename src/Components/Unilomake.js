@@ -3,10 +3,13 @@ import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
 import Viesti from "../Toiminnot/Viesti.js";
 import { unenlaatu } from "../Toiminnot/Tiedot.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
 import {
+  Alert,
+  Slide,
   IconButton,
   Box,
   Paper,
@@ -30,6 +33,7 @@ const styles = {
 
 function UnilomakeMUI() {
   const [viesti, setViesti] = useState("");
+  const [onkoMaara, setOnkoMaara] = useState(false);
 
   const luoUni = (uni) => {
     axios
@@ -49,13 +53,17 @@ function UnilomakeMUI() {
     lisatiedot: "",
   });
 
+  useEffect(() => {
+    const onkoMaara = values.maara !== "";
+    setOnkoMaara(onkoMaara);
+  }, [values.maara]);
+
   const handleChange = (e) => {
     setValues({
       ...values,
       [e.target.name]: e.target.value,
     });
   };
-
 
   // Funktio painikkeen painallukselle
   const lisaaUni = (e) => {
@@ -110,13 +118,20 @@ function UnilomakeMUI() {
             sx={{ mb: 1 }}
             label="Unen määrä: "
             name="maara"
-            required
-            inputProps={{ type: "number", inputMode: "numeric" }}
+            type="time"
             onChange={handleChange}
             value={values.maara}
+            InputLabelProps={{ shrink: true }}
           />
-          <TextField sx={{ mb: 1 }} label="Päivämäärä: " name="pvm" onChange={handleChange} value={values.pvm}/>
-
+          <TextField
+            sx={{ mb: 1 }}
+            label="Päivämäärä: "
+            name="pvm"
+            type="date"
+            onChange={handleChange}
+            value={values.pvm}
+            InputLabelProps={{ shrink: true }}
+          />
           <TextField
             sx={{ mb: 1 }}
             defaultValue=""
@@ -133,23 +148,37 @@ function UnilomakeMUI() {
             ))}
           </TextField>
 
-          <TextField label="Lisätietoja: " name="lisatiedot" onChange={handleChange} value={values.lisatiedot}/>
+          <TextField
+            label="Lisätietoja: "
+            name="lisatiedot"
+            onChange={handleChange}
+            value={values.lisatiedot}
+            multiline
+            autoComplete="off"
+          />
 
           <Box sx={{ textAlign: "left" }}>
-            <Button
-              onClick={(e) => {
-                lisaaUni(e);
-              }}
-              variant="contained"
-              sx={{ marginRight: 3, mt: 2, fontSize: "13px" }}
-              startIcon={<CreateIcon />}
+            <Slide
+              direction="right"
+              in={onkoMaara}
+              style={{ transitionDuration: "0.8s" }}
             >
-              Tallenna
-            </Button>
+              <Button
+                onClick={(e) => {
+                  lisaaUni(e);
+                }}
+                variant="contained"
+                sx={{ marginRight: 3, mt: 2, fontSize: "13px" }}
+                startIcon={<CreateIcon />}
+              >
+                Tallenna
+              </Button>
+            </Slide>
           </Box>
         </Box>
 
         <Viesti viesti={viesti} />
+        {!onkoMaara && <Alert severity="info">Syötä unelle määrä</Alert>}
       </Paper>
     </Grid>
   );

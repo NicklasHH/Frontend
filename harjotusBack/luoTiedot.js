@@ -4,6 +4,7 @@ const db = new sqlite3.Database("tiedot.db");
 db.serialize(() => {
   let sql =
     "CREATE TABLE tieto (" +
+    "id integer PRIMARY KEY NOT NULL, " +
     "tunnus text NOT NULL, " +
     "enimi text NOT NULL, " +
     "snimi text NOT NULL, " +
@@ -18,8 +19,8 @@ db.serialize(() => {
   });
 
   sql =
-    "INSERT INTO `tieto` (`tunnus`, `enimi`, `snimi`, `email`, 'puh') " +
-    " VALUES ('abc', 'etunimi1', 'sukunimi', 'etunimi.sukunimi@email.com', '0400-123123')";
+    "INSERT INTO `tieto` (`id`, `tunnus`, `enimi`, `snimi`, `email`, 'puh') " +
+    " VALUES (1, 'abc', 'etunimi1', 'sukunimi', 'etunimi.sukunimi@email.com', '0400-123123')";
   db.run(sql, (err) => {
     if (err) {
       return console.log(err.message);

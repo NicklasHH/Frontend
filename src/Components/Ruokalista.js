@@ -1,12 +1,11 @@
+import "../Css/tableStyles.css";
 import * as React from "react";
 import { useState, useEffect } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
-import "../Components/tableStyles.css";
+import SearchIcon from "@mui/icons-material/Search";
 import Tahdet from "../Toiminnot/Tahdet.js";
 import PoistaRivi from "./VarmistaPoisto.js";
 import MuokkaaRuoka from "./MuokkaaRuoka.js";
-
 import {
   TextField,
   InputAdornment,
@@ -24,6 +23,7 @@ function RuokalistaTable() {
   const [searchText, setSearchText] = React.useState("");
   const [ruoat, setRuoat] = useState([]);
 
+  
   useEffect(() => {
     axios
       .get("http://localhost:8080/ruoka/all")
@@ -32,8 +32,8 @@ function RuokalistaTable() {
       })
       .catch((error) => {
         console.log(error);
-      });
-  }, []);
+      })
+    });
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -102,6 +102,7 @@ function RuokalistaTable() {
         </TableContainer>
       </Box>
     </Box>
+    
   );
 }
 
