@@ -136,10 +136,10 @@ function Etusivu() {
       </Box>
 
       <motion.div
-      animate={{
-        opacity: clickUni || clickRuoka ? 0 : 1,
-      }}>
-
+        animate={{
+          opacity: clickUni || clickRuoka ? 0 : 1,
+        }}
+      >
         <Saa />
       </motion.div>
     </Box>

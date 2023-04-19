@@ -7,6 +7,7 @@ import Tahdet from "../Toiminnot/Tahdet.js";
 import PoistaRivi from "./VarmistaPoisto.js";
 import MuokkaaRuoka from "./MuokkaaRuoka.js";
 import {
+  Tooltip,
   TextField,
   InputAdornment,
   TableCell,
@@ -23,7 +24,6 @@ function RuokalistaTable() {
   const [searchText, setSearchText] = React.useState("");
   const [ruoat, setRuoat] = useState([]);
 
-  
   useEffect(() => {
     axios
       .get("http://localhost:8080/ruoka/all")
@@ -32,8 +32,8 @@ function RuokalistaTable() {
       })
       .catch((error) => {
         console.log(error);
-      })
-    });
+      });
+  });
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -88,12 +88,23 @@ function RuokalistaTable() {
                     <TableCell>{row.aika}</TableCell>
                     <TableCell>{row.lisatiedot}</TableCell>
                     <TableCell>
+                      <Tooltip
+                        title="Muokkaa"
+                        classes={{ tooltip: "muokkaa-tooltip" }}
+                      >
+                        <span>
+                          <MuokkaaRuoka id={row.id} />
+                        </span>
+                      </Tooltip>
+                      <Tooltip
+                        title="Poista"
+                        classes={{ tooltip: "poista-tooltip" }}
+                      >
+                        <span>
+                          <PoistaRivi id={row.id} reitti="uruokani" />
+                        </span>
+                      </Tooltip>
                       <Tahdet value={row.tahdet} />
-                    </TableCell>
-                    <TableCell>
-
-                    <MuokkaaRuoka id={row.id} />
-                      <PoistaRivi id={row.id} reitti="ruoka" />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -102,7 +113,6 @@ function RuokalistaTable() {
         </TableContainer>
       </Box>
     </Box>
-    
   );
 }
 

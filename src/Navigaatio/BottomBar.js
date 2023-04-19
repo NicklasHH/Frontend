@@ -8,12 +8,11 @@ import {
   IconButton,
   Box,
   Drawer,
-  List,
   ListItem,
   Tooltip,
 } from "@mui/material";
 
-function LeftMenu() {
+function BottomBar() {
   const [open] = useState(true);
 
   return (
@@ -31,7 +30,7 @@ function LeftMenu() {
           },
         }}
       >
-        <List>
+
           <ListItem style={{ justifyContent: "center" }}>
             <EmailPop />
             <Tooltip title="Twitter" arrow>
@@ -52,10 +51,10 @@ function LeftMenu() {
             </Tooltip>
             <GoogleSearch />
           </ListItem>
-        </List>
+
       </Drawer>
     </Box>
   );
 }
 
-export default LeftMenu;
+export default BottomBar;

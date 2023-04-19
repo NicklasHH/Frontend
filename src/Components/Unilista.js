@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PoistaRivi from "./VarmistaPoisto.js";
 import MuokkaaUni from "./MuokkaaUni.js";
 import {
+  Tooltip,
   TextField,
   InputAdornment,
   TableCell,
@@ -17,8 +18,6 @@ import {
   TableContainer,
   Box,
 } from "@mui/material";
-
-
 
 function UnilistaTable() {
   const [searchText, setSearchText] = React.useState("");
@@ -32,9 +31,9 @@ function UnilistaTable() {
       })
       .catch((error) => {
         console.log(error);
-      })
-    });
-    
+      });
+  });
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Box sx={{ m: 2 }}>
@@ -65,7 +64,7 @@ function UnilistaTable() {
                 <TableCell className="header-cell">Päivämäärä</TableCell>
                 <TableCell className="header-cell">Laatu</TableCell>
                 <TableCell className="header-cell">Lisätiedot</TableCell>
-                <TableCell>muokkaa/poista</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
 
@@ -91,9 +90,22 @@ function UnilistaTable() {
                     <TableCell>{row.laatu}</TableCell>
                     <TableCell>{row.lisatiedot}</TableCell>
                     <TableCell>
-                      <MuokkaaUni id={row.id} />
-
-                      <PoistaRivi id={row.id} reitti="uni" />
+                      <Tooltip
+                        title="Muokkaa"
+                        classes={{ tooltip: "muokkaa-tooltip" }}
+                      >
+                        <span>
+                          <MuokkaaUni id={row.id} />
+                        </span>
+                      </Tooltip>
+                      <Tooltip
+                        title="Poista"
+                        classes={{ tooltip: "poista-tooltip" }}
+                      >
+                        <span>
+                          <PoistaRivi id={row.id} reitti="uni" />
+                        </span>
+                      </Tooltip>
                     </TableCell>
                   </TableRow>
                 ))}

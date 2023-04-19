@@ -22,3 +22,13 @@
   font-weight: bold !important;
   font-size: 18px !important;
 }
+.muokkaa-tooltip {
+  color: #07f000 !important; 
+  background-color: #121212 !important;
+  border: 1px solid #202124;
+}
+.poista-tooltip {
+  color: #ff0000 !important; 
+  background-color: #121212 !important;
+  border: 1px solid #202124;
+}
