@@ -88,6 +88,9 @@ function RuokalistaTable() {
                     <TableCell>{row.aika}</TableCell>
                     <TableCell>{row.lisatiedot}</TableCell>
                     <TableCell>
+                      <Tahdet value={row.tahdet} />
+                    </TableCell>
+                    <TableCell>
                       <Tooltip
                         title="Muokkaa"
                         classes={{ tooltip: "muokkaa-tooltip" }}
@@ -104,7 +107,6 @@ function RuokalistaTable() {
                           <PoistaRivi id={row.id} reitti="uruokani" />
                         </span>
                       </Tooltip>
-                      <Tahdet value={row.tahdet} />
                     </TableCell>
                   </TableRow>
                 ))}

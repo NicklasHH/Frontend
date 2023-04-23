@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
+import "../Css/lomakeStyles.css";
 import {
   IconButton,
   Box,
@@ -161,6 +162,7 @@ function RuokalomakeMUI() {
               <Box>
                 <TextField
                   sx={{ mb: 1 }}
+                  className="dark-theme"
                   label="Päivämäärä: "
                   name="pvm"
                   type="date"

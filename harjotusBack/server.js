@@ -7,6 +7,16 @@ app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(express.json());
 app.use(express.urlencoded({ limit: "5mb", extended: true }));
 
+// Lataa luomistiedostot
+const luoRuoat = require('./luoRuoat.js');
+const luoTiedot = require('./luoTiedot.js');
+const luoUnet = require('./luoUnet.js');
+
+// Suorita koodit
+luoRuoat();
+luoTiedot();
+luoUnet();
+
 const cors = require("cors");
 app.use(cors());
 
@@ -219,3 +229,5 @@ app.get("*", (req, res, next) => {
     .status(404)
     .json({ error: true, message: "Ei pyydettyä palvelua" });
 });
+
+luoRuoat();

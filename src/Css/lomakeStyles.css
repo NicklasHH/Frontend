@@ -1,0 +1,9 @@
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color-scheme: dark;
+  mix-blend-mode: difference;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  color-scheme: dark;
+  mix-blend-mode: difference;
+}
