@@ -20,7 +20,7 @@ const styles = {
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     padding: "10px",
-    width: "240px",
+    width: "300px",
   },
 };
 
