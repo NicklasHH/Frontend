@@ -4,6 +4,7 @@ import { ExpandMore, ExpandLess } from "@mui/icons-material/";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
+import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import NotificationsPausedIcon from "@mui/icons-material/NotificationsPaused";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import {
@@ -135,12 +136,37 @@ function LeftMenu() {
               </List>
             </Collapse>
 
+
+
+
+            <ListItemButton
+              component={Link}
+              to="/saa"
+              sx={{
+                borderTop: 1,
+                borderColor: "grey.600",
+                bgcolor: "kolmas.main",
+              }}
+              onClick={toggleMenu}
+            >
+              <ListItemIcon>
+                <CloudOutlinedIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Sää" />
+            </ListItemButton>
+
+
+
             {/* Unilistan alapuolinen viiva */}
             <ListItemButton
               disabled
               sx={{ borderTop: 1, borderColor: "grey.400" }}
             ></ListItemButton>
           </List>
+
+
+
+          
         </ClickAwayListener>
       </Drawer>
     </Box>

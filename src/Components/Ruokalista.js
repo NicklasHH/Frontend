@@ -104,7 +104,7 @@ function RuokalistaTable() {
                         classes={{ tooltip: "poista-tooltip" }}
                       >
                         <span>
-                          <PoistaRivi id={row.id} reitti="uruokani" />
+                          <PoistaRivi id={row.id} reitti="ruoka" />
                         </span>
                       </Tooltip>
                     </TableCell>

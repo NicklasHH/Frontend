@@ -34,7 +34,6 @@ function Dialogi({ open, onClose, onDelete, id, reitti }) {
         <Button
           onClick={() => {
             handleDelete();
-            window.location.reload();
           }}
           variant="contained"
           sx={{

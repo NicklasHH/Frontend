@@ -10,6 +10,7 @@ import OmatTiedot from "./Components/OmatTiedot";
 import Etusivu from "./Components/Etusivu";
 import Kirjaudu from "./Components/Kirjaudu";
 import KirjauduUlos from "./Components/KirjauduUlos";
+import OpenWeatherSaa from "./Components/OpenWeatherSaa";
 
 const theme = createTheme({
   palette: {
@@ -52,6 +53,7 @@ function App() {
             <Route path="ruoka" element={<RuokalistaTable />} />
             <Route path="lisaaUni" element={<Unilomake />} />
             <Route path="lisaaRuoka" element={<Ruokalomake />} />
+            <Route path="saa" element={<OpenWeatherSaa />} />
           </Route>
         </Routes>
       </BrowserRouter>

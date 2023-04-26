@@ -30,7 +30,7 @@ function luoRuoat() {
 
     sql =
       "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-      " VALUES (1, 'Ruoka1', '01.04.2023', '12.30', 'ei', '0')";
+      " VALUES (1, 'Makkara ja perunamuusi', '01.04.2023', '12.30', 'ei', '5')";
     db.run(sql, (err) => {
       if (err) {
         return console.log(err.message);
@@ -41,7 +41,7 @@ function luoRuoat() {
 
     sql =
       "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-      " VALUES (2, 'Ruoka2', '02.04.2023', '12.31', 'ei', '1')";
+      " VALUES (2, 'Kana ceasar salaatti', '02.04.2023', '12.31', 'ei', '4')";
     db.run(sql, (err) => {
       if (err) {
         return console.log(err.message);
@@ -52,7 +52,7 @@ function luoRuoat() {
 
     sql =
       "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-      " VALUES (3, 'Ruoka3', '03.04.2023', '12.32', 'ei', '2')";
+      " VALUES (3, 'Risotto kanalla', '03.04.2023', '12.32', 'ei', '4')";
     db.run(sql, (err) => {
       if (err) {
         return console.log(err.message);
@@ -63,7 +63,7 @@ function luoRuoat() {
 
     sql =
       "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-      " VALUES (4, 'Ruoka4', '04.04.2023', '12.33', 'ei', '4')";
+      " VALUES (4, 'Makaronilaatikko', '04.04.2023', '12.33', 'Cheddarilla', '4')";
     db.run(sql, (err) => {
       if (err) {
         return console.log(err.message);
@@ -74,7 +74,7 @@ function luoRuoat() {
 
     sql =
       "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-      " VALUES (5, 'Ruoka5', '05.04.2023', '12.34', 'ei', '5')";
+      " VALUES (5, 'Makkaraperunat', '05.04.2023', '12.34', 'ei', '5')";
     db.run(sql, (err) => {
       if (err) {
         return console.log(err.message);
@@ -85,7 +85,7 @@ function luoRuoat() {
 
     sql =
       "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-      " VALUES (6, 'Ruoka6', '06.04.2023', '12.35', 'ei', '3')";
+      " VALUES (6, 'Kanapasta', '06.04.2023', '12.35', 'Aurajuustolla', '3')";
     db.run(sql, (err) => {
       if (err) {
         return console.log(err.message);
@@ -96,7 +96,7 @@ function luoRuoat() {
 
     sql =
       "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-      " VALUES (7, 'Ruoka7', '07.04.2023', '12.36', 'Ruoka meni ja paljo pohjaan', '2')";
+      " VALUES (7, 'Kalakeitto', '07.04.2023', '12.36', 'Meni ja palo pohjaan ni hain makkaraperunat', '0')";
     db.run(sql, (err) => {
       if (err) {
         return console.log(err.message);
@@ -107,7 +107,7 @@ function luoRuoat() {
 
     sql =
       "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-      " VALUES (8, 'Ruoka8', '08.04.2023', '12.37', 'ei', '1')";
+      " VALUES (8, 'Makkaraperunat', '08.04.2023', '14.36', 'ei', '5')";
     db.run(sql, (err) => {
       if (err) {
         return console.log(err.message);

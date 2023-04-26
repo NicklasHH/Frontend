@@ -8,9 +8,9 @@ app.use(express.json());
 app.use(express.urlencoded({ limit: "5mb", extended: true }));
 
 // Lataa luomistiedostot
-const luoRuoat = require('./luoRuoat.js');
-const luoTiedot = require('./luoTiedot.js');
-const luoUnet = require('./luoUnet.js');
+const luoRuoat = require("./luoRuoat.js");
+const luoTiedot = require("./luoTiedot.js");
+const luoUnet = require("./luoUnet.js");
 
 // Suorita koodit
 luoRuoat();
@@ -79,7 +79,7 @@ app.get("/uni/one/:id", (req, res, next) => {
   }); // db.get
 });
 
-// Viimeisin ruoka(otettu isoin ID)
+// Viimeisin uni(otettu isoin ID)
 app.get("/uni/uusin", (req, res, next) => {
   unidb.get(
     "SELECT * FROM uni WHERE id = (SELECT MAX(id) FROM uni)",
