@@ -1,6 +1,8 @@
-import ReactWeather, { useOpenWeather } from 'react-open-weather';
+import ReactWeather, { useOpenWeather } from "react-open-weather";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import backgroundb from "../Media/backgroundb.png";
+import { motion } from "framer-motion";
 
 const customStyles = {
   fontFamily: "Castoro Titling",
@@ -22,7 +24,6 @@ const customStyles = {
   forecastIconColor: "#777",
 };
 
-
 const OpenWeatherSaa = () => {
   const { data, isLoading, errorMessage } = useOpenWeather({
     key: "6f1836cce592cb0cfea746a9cb4e2369",
@@ -31,26 +32,67 @@ const OpenWeatherSaa = () => {
     lang: "fi",
     unit: "metric",
   });
+
+  const [naytaBoxi, setNaytaBoxi] = useState(false);
+  const [showForecast, setShowForecast] = useState(false);
+
+  const handleClick = () => {
+    setNaytaBoxi(!naytaBoxi);
+    setShowForecast(!showForecast);
+  };
+
   return (
     <Box
+      onClick={handleClick}
       sx={{
-        m: 10,
+        mt: "50px",
+        marginLeft: "auto",
+        marginRight: "auto",
         backgroundImage: `url(${backgroundb})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         borderRadius: "10px",
+        minWidth: "400px",
+        maxWidth: "700px",
+        cursor: "pointer",
+        userSelect: "none",
       }}
     >
-      <ReactWeather
-        theme={customStyles}
-        isLoading={isLoading}
-        errorMessage={errorMessage}
-        data={data}
-        lang="fi"
-        locationLabel="Paimio"
-        unitsLabels={{ temperature: "C", windSpeed: "Km/h" }}
-        showForecast
-      />
+      <motion.div
+        className="box"
+        animate={{
+          y: naytaBoxi ? 0 : 100,
+        }}
+        transition={{
+          duration: 0.75,
+          ease: "easeOut",
+        }}
+        onClick={handleClick}
+      >
+        <ReactWeather
+          theme={customStyles}
+          isLoading={isLoading}
+          errorMessage={errorMessage}
+          data={data}
+          lang="fi"
+          locationLabel="Paimio"
+          unitsLabels={{ temperature: "C", windSpeed: "Km/h" }}
+          showForecast={showForecast}
+        />
+      </motion.div>
+
+      <Box style={{ position: "relative" }}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: -300,
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          {!naytaBoxi && <h1>Sää</h1>}
+        </Box>
+      </Box>
     </Box>
   );
 };
