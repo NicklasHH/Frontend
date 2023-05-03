@@ -6,17 +6,48 @@ import Aika from "./Aika.js";
 const Saa = () => {
   const [saa, setSaa] = useState(null);
   const [naytaSaa, setNaytaSaa] = useState(true);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [kaupunki, setKaupunki] = useState(null);
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  }
+
+  function showPosition(position) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&result_type=locality&key=API_AVAIN`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const city = data.results[0].address_components[0].long_name;
+        setKaupunki(city);
+      })
+      .catch((error) => console.error(error + 'tarkista api'));
+  }
+  getLocation();
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://api.open-meteo.com/v1/forecast?latitude=60.46&longitude=22.69&hourly=temperature_2m,relativehumidity_2m,rain,weathercode,windspeed_10m&current_weather=true&forecast_days=1&timezone=Europe%2FMoscow"
-      );
-      const data = await response.json();
-      setSaa(data.current_weather);
+      if (latitude !== null && longitude !== null) {
+        const response = await fetch(
+          "https://api.open-meteo.com/v1/forecast?latitude=" +
+            latitude +
+            "&longitude=" +
+            longitude +
+            "&hourly=temperature_2m,relativehumidity_2m,rain,weathercode,windspeed_10m&current_weather=true&forecast_days=1&timezone=Europe%2FMoscow"
+        );
+        const data = await response.json();
+        setSaa(data.current_weather);
+      }
     };
     fetchData();
-  }, []);
+  }, [latitude, longitude]);
 
   if (!saa) {
     return <Box>Lataillaan...</Box>;
@@ -117,9 +148,11 @@ const Saa = () => {
           borderColor="primary.main"
           padding={5}
         >
+          <Typography>Kaupunki: {kaupunki}</Typography>
           <Typography>
             Kello on <Aika />{" "}
           </Typography>
+
           <Typography>Sää on päivitetty: {saa.time.slice(-5)}</Typography>
           <Typography>Lämpötila: {saa.temperature}</Typography>
           <Typography>Sää: {koodiSaaksi}</Typography>

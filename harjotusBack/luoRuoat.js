@@ -107,7 +107,7 @@ function luoRuoat() {
 
     sql =
       "INSERT INTO `ruoka` (`id`, `nimi`, `pvm`, `aika`, `lisatiedot`, `tahdet` ) " +
-      " VALUES (8, 'Makkaraperunat', '08.04.2023', '14.36', 'ei', '5')";
+      " VALUES (8, 'Makkaraperunat', '07.04.2023', '14.36', 'ei', '5')";
     db.run(sql, (err) => {
       if (err) {
         return console.log(err.message);
