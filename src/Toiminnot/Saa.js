@@ -21,7 +21,7 @@ const Saa = () => {
     setLongitude(position.coords.longitude);
 
     fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&result_type=locality&key=API_AVAIN`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&result_type=locality&key=AIzaSyCVqbxpdsn_bbDE_0EiOdq0gQhAuMnzTys`
     )
       .then((response) => response.json())
       .then((data) => {

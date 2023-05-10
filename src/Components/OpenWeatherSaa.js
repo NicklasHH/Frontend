@@ -26,7 +26,7 @@ const customStyles = {
 
 const OpenWeatherSaa = () => {
   const { data, isLoading, errorMessage } = useOpenWeather({
-    key: "API_AVAIN",
+    key: "f1836cce592cb0cfea746a9cb4e2369",
     lat: "60.451640592108525",
     lon: "22.6922109226697",
     lang: "fi",
